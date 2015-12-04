@@ -1,0 +1,14 @@
+/app/config/parameters.yml
+/app/config/parameters.ini
+/bin/
+/build/
+/composer.phar
+/vendor/
+/web/bundles/
+/var/
+/var/cache/*
+/var/logs/*
+!var/cache/.gitkeep
+!var/logs/.gitkeep
+!var/sessions/.gitkeep
+/phpunit.xml
