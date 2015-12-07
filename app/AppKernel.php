@@ -3,6 +3,9 @@
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
+// setting the default time zone
+date_default_timezone_set('UTC');
+
 class AppKernel extends Kernel
 {
     public function registerBundles()
@@ -16,6 +19,8 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AppBundle\AppBundle(),
+            new UserBundle\UserBundle(),
+            new PitchBundle\PitchBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
