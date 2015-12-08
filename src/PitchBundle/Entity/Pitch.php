@@ -56,6 +56,18 @@ class Pitch
      */
     private $updatedAt;
 
+    /**
+     * @var ArrayCollection $comments
+     * @ORM\ManyToOne(targetEntity="PitchBundle\Entity\Comment", cascade={"persist", "remove"}))
+     * @ORM\JoinColumn(nullable=false)
+     */
+     private $comments;
+
+     /**
+      * @ORM\ManyToOne(targetEntity="PitchBundle\Entity\Category")
+      * @ORM\JoinColumn(nullable=false)
+      */
+     private $category;
 
     /**
      * Get id
@@ -186,5 +198,52 @@ class Pitch
     {
         return $this->updatedAt;
     }
-}
 
+    /**
+     * Set comments
+     *
+     * @param \PitchBundle\Entity\Comment $comments
+     *
+     * @return Pitch
+     */
+    public function setComments(\PitchBundle\Entity\Comment $comments)
+    {
+        $this->comments = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \PitchBundle\Entity\Comment
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \PitchBundle\Entity\Category $category
+     *
+     * @return Pitch
+     */
+    public function setCategory(\PitchBundle\Entity\Category $category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \PitchBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+}

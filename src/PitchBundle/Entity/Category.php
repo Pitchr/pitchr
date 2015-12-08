@@ -28,6 +28,13 @@ class Category
      */
     private $title;
 
+    /**
+     * @var ArrayCollection $pitchs
+     * @ORM\ManyToOne(targetEntity="PitchBundle\Entity\Pitch"))
+     * @ORM\JoinColumn(nullable=true)
+     */
+     private $pitchs;
+
 
     /**
      * Get id
@@ -62,5 +69,42 @@ class Category
     {
         return $this->title;
     }
-}
 
+    /**
+     * Add pitch
+     *
+     * @param \PitchBundle\Entity\Pitch $pitch
+     *
+     * @return Pitch
+     */
+    public function addPitch(\PitchBundle\Entity\Pitch $pitch)
+    {
+        $this->pitchs[] = $pitch;
+
+        return $this;
+    }
+
+    /**
+     * Set pitchs
+     *
+     * @param \PitchBundle\Entity\Pitch $pitchs
+     *
+     * @return Pitch
+     */
+    public function setPitchs(\PitchBundle\Entity\Pitch $pitchs)
+    {
+        $this->pitchs = $pitchs;
+
+        return $this;
+    }
+
+    /**
+     * Get pitchs
+     *
+     * @return \PitchBundle\Entity\Pitch
+     */
+    public function getPitchs()
+    {
+        return $this->pitchs;
+    }
+}
