@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="pitch")
  * @ORM\Entity(repositoryClass="PitchBundle\Repository\PitchRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Pitch
 {
@@ -68,6 +69,19 @@ class Pitch
       * @ORM\JoinColumn(nullable=false)
       */
      private $category;
+
+     /**
+     * Constructor
+     */
+     public function __construct()
+      {
+        $this->createdAt = new \Datetime();
+      }
+
+      public function updateDate()
+      {
+        $this->setUpdatedAt(new \Datetime());
+      }
 
     /**
      * Get id
