@@ -39,7 +39,7 @@ class Pitch
     /**
      * @var string
      *
-     * @ORM\Column(name="url", type="string", length=255)
+     * @ORM\Column(name="url", type="string", length=255, nullable=true)
      */
     private $url;
 
@@ -53,35 +53,30 @@ class Pitch
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updated_at", type="datetime")
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
 
     /**
      * @var ArrayCollection $comments
-     * @ORM\ManyToOne(targetEntity="PitchBundle\Entity\Comment", cascade={"persist", "remove"}))
+     * @ORM\OneToMany(targetEntity="PitchBundle\Entity\Comment", mappedBy="pitch", cascade={"persist", "remove"}))
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $comments;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="PitchBundle\Entity\Category")
      * @ORM\JoinColumn(nullable=false)
      */
-     private $comments;
+    private $category;
 
-     /**
-      * @ORM\ManyToOne(targetEntity="PitchBundle\Entity\Category")
-      * @ORM\JoinColumn(nullable=false)
-      */
-     private $category;
-
-     /**
+    /**
      * Constructor
      */
-     public function __construct()
-      {
+    public function __construct()
+    {
         $this->createdAt = new \Datetime();
-      }
-
-      public function updateDate()
-      {
-        $this->setUpdatedAt(new \Datetime());
-      }
+    }
 
     /**
      * Get id
@@ -214,6 +209,31 @@ class Pitch
     }
 
     /**
+     * Update date
+     *
+     * @ORM\PreUpdate
+     */
+    public function updateDate()
+    {
+        $this->setUpdatedAt(new \Datetime());
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \PitchBundle\Entity\Comment $comment
+     *
+     * @return Pitch
+     */
+    public function addComment(\PitchBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+
+    /**
      * Set comments
      *
      * @param \PitchBundle\Entity\Comment $comments
@@ -235,6 +255,16 @@ class Pitch
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \PitchBundle\Entity\Comment $comment
+     */
+    public function removeComment(\PitchBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
     }
 
     /**

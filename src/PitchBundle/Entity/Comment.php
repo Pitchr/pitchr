@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="comment")
  * @ORM\Entity(repositoryClass="PitchBundle\Repository\CommentRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Comment
 {
@@ -38,17 +39,31 @@ class Comment
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updated_at", type="datetime")
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="vote", type="integer")
+     * @ORM\Column(name="vote", type="integer", nullable=true)
      */
     private $vote;
 
+    /**
+     * @var Pitch
+     * @ORM\ManyToOne(targetEntity="PitchBundle\Entity\Pitch", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $pitch;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->createdAt = new \Datetime();
+    }
 
     /**
      * Get id
@@ -133,6 +148,16 @@ class Comment
     }
 
     /**
+     * Update date
+     *
+     * @ORM\PreUpdate
+     */
+    public function updateDate()
+    {
+        $this->setUpdatedAt(new \Datetime());
+    }
+
+    /**
      * Set vote
      *
      * @param integer $vote
@@ -155,5 +180,28 @@ class Comment
     {
         return $this->vote;
     }
-}
 
+    /**
+     * Set pitch
+     *
+     * @param \PitchBundle\Entity\Pitch $pitch
+     *
+     * @return Comment
+     */
+    public function setPitch(\PitchBundle\Entity\Pitch $pitch)
+    {
+        $this->pitch = $pitch;
+
+        return $this;
+    }
+
+    /**
+     * Get pitch
+     *
+     * @return \PitchBundle\Entity\Pitch
+     */
+    public function getPitch()
+    {
+        return $this->pitch;
+    }
+}
