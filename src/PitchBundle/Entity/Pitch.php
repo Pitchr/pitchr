@@ -3,6 +3,7 @@
 namespace PitchBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Pitch
@@ -37,11 +38,17 @@ class Pitch
     private $description;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="url", type="string", length=255, nullable=true)
+     * @Gedmo\Slug(fields={"title"}, updatable=false)
+     * @ORM\Column(length=255, unique=true)
      */
-    private $url;
+    private $slug;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="views", type="integer")
+     */
+    private $views;
 
     /**
      * @var \DateTime
@@ -65,10 +72,17 @@ class Pitch
     private $comments;
 
     /**
-     * @ORM\ManyToOne(targetEntity="PitchBundle\Entity\Category")
+     * @ORM\ManyToOne(targetEntity="PitchBundle\Entity\Category", inversedBy="pitchs", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
+
+    /**
+     * @var User
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="pitchs")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     /**
      * Constructor
@@ -76,6 +90,7 @@ class Pitch
     public function __construct()
     {
         $this->createdAt = new \Datetime();
+        $this->views = 0;
     }
 
     /**
@@ -134,30 +149,6 @@ class Pitch
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Set url
-     *
-     * @param string $url
-     *
-     * @return Pitch
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
-
-        return $this;
-    }
-
-    /**
-     * Get url
-     *
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->url;
     }
 
     /**
@@ -289,5 +280,78 @@ class Pitch
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Pitch
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Set views
+     *
+     * @param integer $views
+     *
+     * @return Pitch
+     */
+    public function setViews($views)
+    {
+        $this->views = $views;
+
+        return $this;
+    }
+
+    /**
+     * Get views
+     *
+     * @return integer
+     */
+    public function getViews()
+    {
+        return $this->views;
+    }
+
+
+    /**
+     * Set user
+     *
+     * @param \UserBundle\Entity\User $user
+     *
+     * @return Pitch
+     */
+    public function setUser(\UserBundle\Entity\User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

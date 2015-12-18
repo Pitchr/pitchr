@@ -4,9 +4,7 @@ security:
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory:
-            memory: ~
-        main:
+        fos_userbundle:
             id: fos_user.user_provider.username
 
     firewalls:
@@ -22,6 +20,10 @@ security:
             form_login:
                 login_path: fos_user_security_login
                 check_path: fos_user_security_check
+                provider: fos_userbundle
+                #csrf_token_generator: security.csrf.token_manager
+#                success_handler: authentication_handler
+#                failure_handler: authentication_handler
             logout:
                 path:       fos_user_security_logout
                 target:     /logout

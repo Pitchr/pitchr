@@ -1,0 +1,39 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+    <form class="login_form auth_form" method="post" role="form">
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+
+        <div class="form-inner row">
+            <div class="login_options row m0">
+                <div class="options_header row m0">
+                    <a href="/"><img src="{{ asset('images/logo.png') }}" alt=""></a>
+                    <h4>Sign in to VideoCafe</h4>
+                </div>
+                <div class="form-body row m0">
+                    <input type="text" id="username" class="form-control" name="_username"
+                           value="{{ last_username }}"
+                           required="required" placeholder="{{ 'security.login.username'|trans }}"/>
+                    <input type="password" id="password" class="form-control" name="_password" required="required"
+                           placeholder="{{ 'security.login.password'|trans }}"/>
+
+                    <div class="checkbox">
+                        <label for="remember_me">
+                            <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
+                            {{ 'security.login.remember_me'|trans }}
+                        </label>
+                    </div>
+
+                    <input type="submit" id="_submit" class="btn btn-default form-control" name="_submit"
+                           value="{{ 'security.login.submit'|trans }}"/>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock fos_user_content %}

@@ -22,6 +22,12 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * @var ArrayCollection $pitchs
+     * @ORM\OneToMany(targetEntity="PitchBundle\Entity\Pitch", mappedBy="user", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $pitchs;
 
     /**
      * Get id
@@ -32,5 +38,38 @@ class User extends BaseUser
     {
         return $this->id;
     }
-}
 
+    /**
+     * Add pitch
+     *
+     * @param \PitchBundle\Entity\Pitch $pitch
+     *
+     * @return User
+     */
+    public function addPitch(\PitchBundle\Entity\Pitch $pitch)
+    {
+        $this->pitchs[] = $pitch;
+
+        return $this;
+    }
+
+    /**
+     * Remove pitch
+     *
+     * @param \PitchBundle\Entity\Pitch $pitch
+     */
+    public function removePitch(\PitchBundle\Entity\Pitch $pitch)
+    {
+        $this->pitchs->removeElement($pitch);
+    }
+
+    /**
+     * Get pitchs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPitchs()
+    {
+        return $this->pitchs;
+    }
+}

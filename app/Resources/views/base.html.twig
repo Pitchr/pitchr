@@ -1,13 +1,289 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}Pitchr | Améliore ton pitch{% endblock %}</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="msapplication-TileColor" content="#e74c3c">
+    <meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#e74c3c">
+
+    <!--Favicons-->
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+    <link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/manifest.json">
+
+    {% block stylesheets %}
+
+        {% stylesheets
+        'css/bootstrap/bootstrap.min.css'
+        'css/bootstrap/bootstrap-theme.min.css'
+        'css/bootstrap-select/*'
+        'css/default/*'
+        'css/responsive/*'
+        'css/font-awesome.min.css'
+        filter='cssrewrite, yui_css' output='assetic/css/main.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
+        {% endstylesheets %}
+    {% endblock %}
+
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body class="home">
+
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/"><img src="{{ asset('images/logo.png') }}" alt=""></a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#middle-menu"
+                    aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="middle-menu">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <span class="home_variation_icon"></span>Home variations
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="index.html">Home Page Version 1</a></li>
+                        <li><a href="index2.html">Home Page Version 2</a></li>
+                        <li><a href="index3.html">Home Page Version 3</a></li>
+                        <li><a href="index4.html">Home Page Version 4</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown mega-drop">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <span class="video_menu_icon"></span>Apprendre
+                    </a>
+                    <ul class="dropdown-menu mega-menu">
+                        <li class="row_title">Deviens un champion du pitch</li>
+                        <li class="videos">
+                            <div class="container">
+                                <div class="col-sm-3">
+                                    <div class="row inner m0">
+                                        <div class="preview_img">
+                                            <img src="http://uxart.io.dimgx.net/Products/video-cafe/images/menu/1.jpg"
+                                                 alt="" class="preview">
+                                            <a href="single-video.html" class="play-btn"></a>
+                                        </div>
+                                        <div class="title_row row m0"><a href="single-video.html">Duis aute irure dolor
+                                                in adipsicing elit</a></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="row inner m0">
+                                        <div class="preview_img">
+                                            <img src="http://uxart.io.dimgx.net/Products/video-cafe/images/menu/2.jpg"
+                                                 alt="" class="preview">
+                                            <a href="single-video.html" class="play-btn"></a>
+                                        </div>
+                                        <div class="title_row row m0"><a href="single-video.html">Duis aute irure dolor
+                                                in adipsicing elit</a></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="row inner m0">
+                                        <div class="preview_img">
+                                            <img src="http://uxart.io.dimgx.net/Products/video-cafe/images/menu/3.jpg"
+                                                 alt="" class="preview">
+                                            <a href="single-video.html" class="play-btn"></a>
+                                        </div>
+                                        <div class="title_row row m0"><a href="single-video.html">Duis aute irure dolor
+                                                in adipsicing elit</a></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="row inner m0">
+                                        <div class="preview_img">
+                                            <img src="http://uxart.io.dimgx.net/Products/video-cafe/images/menu/4.jpg"
+                                                 alt="" class="preview">
+                                            <a href="single-video.html" class="play-btn"></a>
+                                        </div>
+                                        <div class="title_row row m0"><a href="single-video.html">Duis aute irure dolor
+                                                in adipsicing elit</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <span class="extra_pages_icon"></span>Nous contacter
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path("fos_user_security_check") }}">Login</a></li>
+                        <li><a href="signup-popup.html">Sign Up</a></li>
+                        <li><a href="single-video.html">Single Video</a></li>
+                        <li><a href="page-author.html">Auther Profile</a></li>
+                        <li><a href="category.html">Category Page</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+        <ul class="nav navbar-nav navbar-right login_drop">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                   aria-expanded="false">
+                    <span class="login_icon"></span> Mon compte
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ path("fos_user_security_login") }}">Login</a></li>
+                    <li><a href="{{ path("fos_user_registration_register") }}">Sign Up</a></li>
+                    {#<li><a href="{{ path("fos_user_registration_register") }}">Sign up</a></li>#}
+                    {% if app.user %}
+                        <li><a href="{{ path("fos_user_profile_show") }}">{{ app.user }}</a></li>
+                    {% endif %}
+                </ul>
+            </li>
+        </ul>
+    </div><!-- /.container-fluid -->
+</nav> <!--Navigation-->
+
+{% block body %}{% endblock %}
+
+<section class="row">
+    <ul class="nav nav-justified ribbon">
+        <li><a href="#"></a></li>
+        <li><a href="#"></a></li>
+        <li><a href="#"></a></li>
+        <li><a href="#"></a></li>
+        <li><a href="#"></a></li>
+        <li><a href="#"></a></li>
+    </ul>
+</section>
+<footer class="row">
+    <div class="container">
+        <div class="row sidebar sidebar_footer">
+            <div class="col-sm-3 widget widget1 w_in_footer widget_about" style="min-height: 258px;">
+                <h5 class="widget_title">À propos de Pitchr</h5>
+
+                <div class="row m0 inner">
+                    <a href="index.html"><img src="{{ asset('images/footer-logo.png') }}" alt=""></a><br>
+
+                    <p>Pitchr est une application web qui permet aux jeunes entrepreuneurs d'apprendre à pitcher et de
+                        s'améliorer. L'application permets de prendre en confiance et de vendre son produit à un futur
+                        investisseur, lors d'un concours ou d'une soutenance. </p>
+                </div>
+            </div>
+            <div class="col-sm-3 widget widget2 w_in_footer widget_subscribe" style="min-height: 274px;">
+                <h5 class="widget_title">On vous spam içi</h5>
+
+                <div class="row m0 inner">
+                    <form action="#" class="row m0" method="post">
+                        <input type="email" class="form-control" placeholder="N'entrez pas d'adresse email">
+                        <input type="submit" value="Envoyer" class="form-control btn btn-default">
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-3 widget widget3 w_in_footer widget_tags" style="min-height: 290px;">
+                <h5 class="widget_title">Nos partenaires</h5>
+
+                <div class="row m0 inner">
+                    <a href="#" class="tag">Noosbee</a>
+                    <a href="#" class="tag">Nextoo</a>
+                    <a href="#" class="tag">Euratechnologies</a>
+                    <a href="#" class="tag">Novad</a>
+                    <a href="#" class="tag">photoshop</a>
+                    <a href="#" class="tag">business</a>
+                    <a href="#" class="tag">windows 10</a>
+                    <a href="#" class="tag">osx yosemite</a>
+                </div>
+            </div>
+            <div class="col-sm-3 widget widget4 w_in_footer widget_twitter" style="min-height: 306px;">
+                <h5 class="widget_title">twitter feed</h5>
+
+                <div class="row m0 inner">
+                    <div class="row m0 tweet"><a href="#">@pitchr:</a>Merci à Vincent pour son Pitch sur son produit
+                        Noosbee
+                    </div>
+                    <div class="row m0 tweet"><a href="#">@pitchr:</a>Superbe Pitch de Grégoire sur les squateboards
+                        électriques.
+                    </div>
+                    <div class="row m0 tweet"><a href="#">@pitchr:</a>Pitchr est maintenant en ligne. Vous pouvez vous
+                        créer un compte sur pitchr.xyz
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+{% block javascripts %}
+
+    {% stylesheets
+    'js/jquery-2.1.4.min.js'
+    'js/bootstrap.min.js'
+    'js/dropzone.js'
+    'js/jquery.jscroll.min.js'
+    'js/bootstrap-select.min.js'
+    'js/theme.js'
+    filter='yui_js' output='assetic/js/main.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endstylesheets %}
+
+    <script>
+
+        {#$(document).ready(function () {#}
+
+            {#$(document).on('click', '#_submit', function (e) {#}
+
+                {#e.preventDefault();#}
+                {#$.ajax({#}
+                    {#type: $('form').attr('method'),#}
+                    {#url: '{{ path("fos_user_security_check") }}',#}
+                    {#data: $('form').serialize(),#}
+                    {#dataType: "json",#}
+                    {#success: function (data, status, object) {#}
+                        {#if (data.error) $('.error').html(data.message);#}
+                        {#console.log('success', data);#}
+                    {#},#}
+                    {#error: function (data, status, object) {#}
+                        {#console.log(data.message);#}
+                    {#}#}
+                {#});#}
+            {#});#}
+
+            {#$("a[data-toggle='modal']").click(function (e) {#}
+                {#e.preventDefault();#}
+                {#var url = $(this).attr('href');#}
+
+                {#console.log("url", url);#}
+                {#$.get(url, function(data) {#}
+                    {#$(data).modal();#}
+                {#});#}
+            {#});#}
+        {#});#}
+    </script>
+{% endblock %}
+
+</body>
 </html>

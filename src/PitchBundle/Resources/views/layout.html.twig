@@ -1,0 +1,23 @@
+{# PitchBundle/Resources/views/layout.html.twig #}
+
+{% extends "::base.html.twig" %}
+
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <section class="row">
+        <ul class="nav nav-justified ribbon">
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+        </ul>
+    </section>
+    {% block pitch_body %}
+    {% endblock %}
+
+{% endblock %}

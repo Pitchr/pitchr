@@ -1,1 +1,51 @@
-Hello World!
+{# PitchBundle/Resources/views/Default/index.html.twig #}
+
+{% extends "PitchBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+
+{% block categories %}
+    test
+{% endblock %}
+
+{% block pitch_body %}
+    <section class="row upload_media">
+        <div class="container">
+            <div class="row">
+                <h2>Pitchr</h2>
+
+                <h3>Améliore ton pitch</h3>
+
+                <form action="/file-upload" class="dropzone dz-clickable" id="upload_media">
+                    <div class="inner row m0">
+                        <div class="row m0 plus_ico">+</div>
+                        <input type="file" name="file" id="media_up_btn" class="sr-only">
+                        <label for="media_up_btn"><img src="images/icons/cloud.png" alt="">Upload Media</label>
+                    </div>
+                    <div class="dz-default dz-message"><span>Drag &amp; Drop Files Here</span></div>
+                </form>
+            </div>
+        </div>
+    </section>
+    {% include 'PitchBundle:Default:search_filter.html.twig' %}
+    <section class="row recent_uploads">
+        <div class="container">
+            <div class="row title_row">
+                <h3>Derniers pitchs ajoutés</h3>
+            </div>
+            <div class="row media-grid content_video_posts">
+                <div class="jscroll-inner">
+                    {% for pitch in pitchs %}
+                        {% include 'PitchBundle:Default:pitch_thumb_sm_3.html.twig' with {'pitch': pitch} %}
+                    {% endfor %}
+                    <div class="row m0">
+                        <div class="clearfix"></div>
+                        <a href="inc/more-uploads-1.html" class="load_more_videos">Charger plus de pitchs</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

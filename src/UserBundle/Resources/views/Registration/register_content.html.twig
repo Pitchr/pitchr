@@ -1,0 +1,22 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register signup_form auth_form', 'role': 'form'}}) }}
+
+<div class="form-inner row">
+    <div class="form-header row m0">
+        <a href="/"><img src="{{ asset('images/logo.png') }}" alt=""></a>
+        <h4>Sign up for VideoCafe Account</h4>
+    </div>
+    <div class="form-body row m0">
+        {{ form_widget(form.username, {'attr': {'class': 'form-control', 'placeholder': 'form.username'|trans }}) }}
+        {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'form.email'|trans}}) }}
+        {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control', 'placeholder': 'form.password'|trans}}) }}
+        {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control', 'placeholder': 'form.password_confirmation'|trans}}) }}
+
+        {{ form_rest(form) }}
+
+        <input type="submit" value="{{ 'registration.submit'|trans }}" class="btn btn-default form-control"/>
+    </div>
+</div>
+
+{{ form_end(form) }}

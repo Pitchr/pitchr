@@ -10,4 +10,16 @@ namespace UserBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findTotalPitchViewsByUser($user)
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        $qb
+            ->select('SUM(p.views)')
+            ->where('u.id = :id')
+            ->setParameter('id', $user->getId())
+            ->join('u.pitchs', 'p');
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 }

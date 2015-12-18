@@ -1,0 +1,42 @@
+<section class="row search_filter">
+    <div class="container">
+        <div class="row m0">
+            <!--Category Filter-->
+            <div class="btn-group category_filter fleft">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    <span class="filter-option pull-left">Categories</span>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#"><span class="filter_text">Toutes</span><span class="badge"></span></a></li>
+                    {{ render(controller('PitchBundle:Front:categoriesList')) }}
+                </ul>
+            </div>
+            <!--Post Type Filter-->
+            <div class="btn-group postTypeFilter fleft" data-toggle="buttons">
+                <label class="btn btn-primary postType1 active">
+                    <input type="radio" name="postType" id="postType1" checked=""> Pitchs
+                </label>
+                <label class="btn btn-primary postType2">
+                    <input type="radio" name="postType" id="postType2"> Populaires
+                </label>
+                <label class="btn btn-primary postType3">
+                    <input type="radio" name="postType" id="postType3"> Vues
+                </label>
+                <label class="btn btn-primary postType4">
+                    <input type="radio" name="postType" id="postType4"> Derniers
+                </label>
+            </div>
+            <!--Search Form-->
+            <form action="#" role="search" class="search_form fleft">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search Here">
+                        <span class="input-group-addon"><button type="submit"><img
+                                        src="{{ asset('images/icons/search.png') }}" alt="">
+                            </button></span>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
