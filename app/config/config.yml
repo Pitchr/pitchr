@@ -83,6 +83,9 @@ fos_user:
     db_driver:     orm                       # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
     firewall_name: main                      # Le nom du firewall derrière lequel on utilisera ces utilisateurs
     user_class:    UserBundle\Entity\User # La classe de l'entité User que nous utilisons
+    registration:
+        form:
+            type:  UserBundle\Form\Type\RegistrationFormType
 
 assetic:
     debug:          "%kernel.debug%"
@@ -94,3 +97,9 @@ assetic:
             jar: '%kernel.root_dir%/Resources/java/yuicompressor-2.4.8.jar'
         yui_js:
             jar: '%kernel.root_dir%/Resources/java/yuicompressor-2.4.8.jar'
+
+#services:
+#    twig.extension.intl:
+#        class:  Twig_Extension
+#        tags:
+#          - { name: twig.extension }

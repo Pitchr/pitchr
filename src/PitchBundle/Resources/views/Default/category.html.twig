@@ -4,25 +4,17 @@
     {{ parent() }}
 {% endblock %}
 
-{% block pitch_body %}
+{% block body %}
     {% include 'PitchBundle:Default:search_filter.html.twig' %}
 
     <section class="row recent_uploads">
         <div class="container">
             <div class="row title_row">
-                <h3>Biography Videos</h3>
+                <h3>{{ category.title }} Videos</h3>
             </div>
             <div class="row media-grid content_video_posts">
                 <div class="jscroll-inner">
-                    {% for pitch in pitchs | slice(1,3) %}
-                        {% include 'PitchBundle:Default:pitch_thumb_sm_3.html.twig' with {'pitch': pitch} %}
-                    {% endfor %}
-                    <div class="col-sm-3 video_post advertise_betweeen_uploads">
-                        <div class="inner row m0">
-                            <h3>Advertise<br>Here</h3>
-                        </div>
-                    </div>
-                    {% for pitch in pitchs | slice(3,11) %}
+                    {% for pitch in pitchs %}
                         {% include 'PitchBundle:Default:pitch_thumb_sm_3.html.twig' with {'pitch': pitch} %}
                     {% endfor %}
                     <div class="row m0">

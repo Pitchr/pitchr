@@ -23,11 +23,34 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=false, length=500)
+     */
+    protected $description;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
+
+    /**
      * @var ArrayCollection $pitchs
      * @ORM\OneToMany(targetEntity="PitchBundle\Entity\Pitch", mappedBy="user", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $pitchs;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->createdAt = new \Datetime();
+    }
 
     /**
      * Get id
@@ -71,5 +94,53 @@ class User extends BaseUser
     public function getPitchs()
     {
         return $this->pitchs;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return User
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return User
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

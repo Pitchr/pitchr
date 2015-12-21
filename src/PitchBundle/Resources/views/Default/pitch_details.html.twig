@@ -44,18 +44,30 @@
                                 <div class="row m0 social_section section_row">
                                     <h5>Social Accounts</h5>
                                     <ul class="list-inline">
-                                        <li><a href="#"><img src="{{ asset('images/icons/social/1.jpg') }}" alt=""></a></li>
-                                        <li><a href="#"><img src="{{ asset('images/icons/social/2.jpg') }}" alt=""></a></li>
-                                        <li><a href="#"><img src="{{ asset('images/icons/social/3.jpg') }}" alt=""></a></li>
-                                        <li><a href="#"><img src="{{ asset('images/icons/social/4.jpg') }}" alt=""></a></li>
-                                        <li><a href="#"><img src="{{ asset('images/icons/social/5.jpg') }}" alt=""></a></li>
-                                        <li><a href="#"><img src="{{ asset('images/icons/social/6.jpg') }}" alt=""></a></li>
-                                        <li><a href="#"><img src="{{ asset('images/icons/social/7.jpg') }}" alt=""></a></li>
-                                        <li><a href="#"><img src="{{ asset('images/icons/social/8.jpg') }}" alt=""></a></li>
-                                        <li><a href="#"><img src="{{ asset('images/icons/social/9.jpg') }}" alt=""></a></li>
-                                        <li><a href="#"><img src="{{ asset('images/icons/social/10.jpg') }}" alt=""></a></li>
-                                        <li><a href="#"><img src="{{ asset('images/icons/social/11.jpg') }}" alt=""></a></li>
-                                        <li><a href="#"><img src="{{ asset('images/icons/social/12.jpg') }}" alt=""></a></li>
+                                        <li><a href="#"><img src="{{ asset('images/icons/social/1.jpg') }}" alt=""></a>
+                                        </li>
+                                        <li><a href="#"><img src="{{ asset('images/icons/social/2.jpg') }}" alt=""></a>
+                                        </li>
+                                        <li><a href="#"><img src="{{ asset('images/icons/social/3.jpg') }}" alt=""></a>
+                                        </li>
+                                        <li><a href="#"><img src="{{ asset('images/icons/social/4.jpg') }}" alt=""></a>
+                                        </li>
+                                        <li><a href="#"><img src="{{ asset('images/icons/social/5.jpg') }}" alt=""></a>
+                                        </li>
+                                        <li><a href="#"><img src="{{ asset('images/icons/social/6.jpg') }}" alt=""></a>
+                                        </li>
+                                        <li><a href="#"><img src="{{ asset('images/icons/social/7.jpg') }}" alt=""></a>
+                                        </li>
+                                        <li><a href="#"><img src="{{ asset('images/icons/social/8.jpg') }}" alt=""></a>
+                                        </li>
+                                        <li><a href="#"><img src="{{ asset('images/icons/social/9.jpg') }}" alt=""></a>
+                                        </li>
+                                        <li><a href="#"><img src="{{ asset('images/icons/social/10.jpg') }}" alt=""></a>
+                                        </li>
+                                        <li><a href="#"><img src="{{ asset('images/icons/social/11.jpg') }}" alt=""></a>
+                                        </li>
+                                        <li><a href="#"><img src="{{ asset('images/icons/social/12.jpg') }}" alt=""></a>
+                                        </li>
                                     </ul>
                                 </div>
                                 <div class="row m0 about_section section_row single_video_info">
@@ -75,27 +87,7 @@
                                 </div>
                             </div>
                             <div class="media-body author_desc_by_author">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                    irure
-                                    dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                                    pariatur.</p>
-
-                                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                                    mollit
-                                    anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                                    accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
-                                    inventore
-                                    veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-
-                                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                                    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-
-                                <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-                                    adipisci
-                                    velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam
-                                    aliquam quaerat voluptatem.</p>
+                                {{ pitch.description }}
                             </div>
                         </div>
                     </div>
@@ -216,64 +208,33 @@
                             </div>
                         </div>
                         <!--More From the Author-->
-                        <div class="row m0 widget widget_popular_videos">
-                            <h5 class="widget_title">more from the author</h5>
+                        {% if more_pitchs is not empty %}
+                            <div class="row m0 widget widget_popular_videos">
+                                <h5 class="widget_title">more from the author</h5>
 
-                            <div class="row m0 inner">
-                                <div class="media">
-                                    <div class="media-left"><a href="single-video.html"><img
-                                                    src="http://uxart.io.dimgx.net/Products/video-cafe/images/popular/1.jpg"
-                                                    alt=""><span class="duration">17:30</span></a></div>
-                                    <div class="media-body">
-                                        <a href="single-video.html">
-                                            <h5>Lorem ipsum dolor si amet etur adipis</h5>
-                                        </a>
+                                <div class="row m0 inner">
+                                    {% for pitch in more_pitchs %}
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <a href="{{ path('pitch_details', {'slug': pitch.slug}) }}">
+                                                    <img src="http://uxart.io.dimgx.net/Products/video-cafe/images/popular/1.jpg"
+                                                         alt="">
+                                                    <span class="duration">17:30</span>
+                                                </a>
+                                            </div>
+                                            <div class="media-body">
+                                                <a href="{{ path('pitch_details', {'slug': pitch.slug}) }}">
+                                                    <h5>{{ pitch.title }}</h5>
+                                                </a>
 
-                                        <div class="row m0 meta_info views">34,000 views</div>
-                                        <div class="row m0 meta_info posted">1 year ago</div>
-                                    </div>
-                                </div>
-                                <div class="media">
-                                    <div class="media-left"><a href="single-video.html"><img
-                                                    src="http://uxart.io.dimgx.net/Products/video-cafe/images/popular/2.jpg"
-                                                    alt=""><span class="duration">17:30</span></a></div>
-                                    <div class="media-body">
-                                        <a href="single-video.html">
-                                            <h5>Lorem ipsum dolor si amet etur adipis</h5>
-                                        </a>
-
-                                        <div class="row m0 meta_info views">34,000 views</div>
-                                        <div class="row m0 meta_info posted">1 year ago</div>
-                                    </div>
-                                </div>
-                                <div class="media">
-                                    <div class="media-left"><a href="single-video.html"><img
-                                                    src="http://uxart.io.dimgx.net/Products/video-cafe/images/popular/3.jpg"
-                                                    alt=""><span class="duration">17:30</span></a></div>
-                                    <div class="media-body">
-                                        <a href="single-video.html">
-                                            <h5>Lorem ipsum dolor si amet etur adipis</h5>
-                                        </a>
-
-                                        <div class="row m0 meta_info views">34,000 views</div>
-                                        <div class="row m0 meta_info posted">1 year ago</div>
-                                    </div>
-                                </div>
-                                <div class="media">
-                                    <div class="media-left"><a href="single-video.html"><img
-                                                    src="http://uxart.io.dimgx.net/Products/video-cafe/images/popular/4.jpg"
-                                                    alt=""><span class="duration">17:30</span></a></div>
-                                    <div class="media-body">
-                                        <a href="single-video.html">
-                                            <h5>Lorem ipsum dolor si amet etur adipis</h5>
-                                        </a>
-
-                                        <div class="row m0 meta_info views">34,000 views</div>
-                                        <div class="row m0 meta_info posted">1 year ago</div>
-                                    </div>
+                                                <div class="row m0 meta_info views">{{ pitch.views }} views</div>
+                                                <div class="row m0 meta_info posted">{{ pitch.createdAt | date('d/m/Y') }}</div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
                                 </div>
                             </div>
-                        </div>
+                        {% endif %}
                         <!--Recommended for You-->
                         <div class="row m0 widget widget_popular_videos">
                             <h5 class="widget_title">Recommended for you</h5>

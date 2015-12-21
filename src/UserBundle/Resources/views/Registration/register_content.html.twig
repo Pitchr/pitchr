@@ -12,6 +12,7 @@
         {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'form.email'|trans}}) }}
         {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control', 'placeholder': 'form.password'|trans}}) }}
         {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control', 'placeholder': 'form.password_confirmation'|trans}}) }}
+        {{ form_widget(form.description, {'attr': {'class': 'form-control', 'rows': 5, 'placeholder': 'form.description'|trans}}) }}
 
         {{ form_rest(form) }}
 

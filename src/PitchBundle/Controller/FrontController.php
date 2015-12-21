@@ -5,7 +5,9 @@ namespace PitchBundle\Controller;
 use PitchBundle\Entity\Category;
 use PitchBundle\Entity\Pitch;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
 
 class FrontController extends Controller
 {
@@ -29,19 +31,32 @@ class FrontController extends Controller
      */
     public function pitchDetailsAction(Pitch $pitch)
     {
-        return $this->render('PitchBundle:Default:pitch_details.html.twig', array('pitch' => $pitch));
+        if ($pitch === null) {
+            throw new NotFoundHttpException("Le pitch n'existe pas.");
+        }
+
+        $user = $pitch->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+        $more_pitchs = $em->getRepository("PitchBundle:Pitch")->findMorePitchs($user, $pitch);
+
+        return $this->render('PitchBundle:Default:pitch_details.html.twig', array('pitch' => $pitch, 'more_pitchs' => $more_pitchs));
     }
 
     /**
      * @Route("/category/{slug}", name="category")
      * @return Response instance
      */
-    public function categoriesAction(\PitchBundle\Entity\Category $category)
+    public function categoryAction(\PitchBundle\Entity\Category $category)
     {
-        $em = $this->getDoctrine()->getManager();
-        $pitchs = $em->getRepository("PitchBundle:Pitch")->findBy(array('category' => $category), array('createdAt' => 'desc'), 11);
+        if ($category === null) {
+            throw new NotFoundHttpException("La catégorie " . $category->getTitle() . " n'existe pas.");
+        }
 
-        return $this->render('PitchBundle:Default:categories.html.twig', array('pitchs' => $pitchs));
+        $em = $this->getDoctrine()->getManager();
+        $pitchs = $em->getRepository("PitchBundle:Pitch")->findBy(array('category' => $category->getId()), array('createdAt' => 'desc'), 11);
+
+        return $this->render('PitchBundle:Default:category.html.twig', array('category' => $category, 'pitchs' => $pitchs));
     }
 
     /**

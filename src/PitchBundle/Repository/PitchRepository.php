@@ -10,4 +10,17 @@ namespace PitchBundle\Repository;
  */
 class PitchRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findMorePitchs($user, $pitch)
+    {
+        $qb = $this->createQueryBuilder('p');
+
+        $qb->where('p.user = :user')
+            ->andWhere('p != :pitch')
+            ->setParameter('user', $user)
+            ->setParameter('pitch', $pitch)
+            ->orderBy('p.createdAt', 'desc')
+            ->setMaxResults(4);
+
+        return $qb->getQuery()->getResult();
+    }
 }

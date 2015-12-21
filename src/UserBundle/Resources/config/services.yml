@@ -2,3 +2,9 @@ services:
     authentication_handler:
         class:     UserBundle\Handler\AuthenticationHandler
         arguments: ['@router', '@security.authorization_checker', '@fos_user.user_manager', '@service_container']
+
+    app_user.registration.form.type:
+        class: UserBundle\Form\Type\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: app_user_registration }
