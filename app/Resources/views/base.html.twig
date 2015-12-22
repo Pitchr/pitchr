@@ -32,10 +32,10 @@
         {% stylesheets
         'css/bootstrap/bootstrap.min.css'
         'css/bootstrap/bootstrap-theme.min.css'
+        'css/font-awesome.min.css'
         'css/bootstrap-select/*'
         'css/default/*'
         'css/responsive/*'
-        'css/font-awesome.min.css'
         filter='cssrewrite, yui_css' output='assetic/css/main.css' %}
         <link rel="stylesheet" href="{{ asset_url }}"/>
         {% endstylesheets %}
@@ -249,40 +249,6 @@
     filter='yui_js' output='assetic/js/main.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endstylesheets %}
-
-    <script>
-
-        {#$(document).ready(function () {#}
-
-            {#$(document).on('click', '#_submit', function (e) {#}
-
-                {#e.preventDefault();#}
-                {#$.ajax({#}
-                    {#type: $('form').attr('method'),#}
-                    {#url: '{{ path("fos_user_security_check") }}',#}
-                    {#data: $('form').serialize(),#}
-                    {#dataType: "json",#}
-                    {#success: function (data, status, object) {#}
-                        {#if (data.error) $('.error').html(data.message);#}
-                        {#console.log('success', data);#}
-                    {#},#}
-                    {#error: function (data, status, object) {#}
-                        {#console.log(data.message);#}
-                    {#}#}
-                {#});#}
-            {#});#}
-
-            {#$("a[data-toggle='modal']").click(function (e) {#}
-                {#e.preventDefault();#}
-                {#var url = $(this).attr('href');#}
-
-                {#console.log("url", url);#}
-                {#$.get(url, function(data) {#}
-                    {#$(data).modal();#}
-                {#});#}
-            {#});#}
-        {#});#}
-    </script>
 {% endblock %}
 
 </body>

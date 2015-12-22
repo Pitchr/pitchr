@@ -1,3 +1,8 @@
 {% for category in categories %}
-    <li><a href="#"><span class="filter_text">{{ category.title }}</span><span class="badge">{{ category.pitchs | length }}</span></a>
+    <li onclick="location.href='{{ path('category', {'slug': category.slug}) }}'">
+        <a href="#">
+            <span class="filter_text">{{ category.title | upper }}</span>
+            <span class="badge">{{ category.pitchs | length }}</span>
+        </a>
+    </li>
 {% endfor %}

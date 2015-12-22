@@ -16,15 +16,17 @@
                 </a>
             </div>
             <div class="row m0">
-                <div class="fleft author">by <a href="page-author.html">{{ pitch.user.username }}</a></div>
+                <div class="fleft author">by <a
+                            href="{{ path('fos_user_profile_show_name', {'username': pitch.user.username}) }}">{{ pitch.user.username }}</a>
+                </div>
                 <div class="fleft date">{{ pitch.createdAt | date('d/m/Y') }}</div>
             </div>
         </div>
         <div class="row m0 taxonomy">
             <div class="fleft category">
-                <a href="category.html">
+                <a href="{{ path('category', {'slug': pitch.category.slug}) }}">
                     <img src="{{ asset('images/icons/cat.png') }}" alt="">
-                    Entertainment
+                    {{ pitch.category.title }}
                 </a>
             </div>
             <div class="fright views">

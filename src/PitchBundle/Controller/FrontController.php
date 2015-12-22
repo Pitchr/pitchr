@@ -5,21 +5,29 @@ namespace PitchBundle\Controller;
 use PitchBundle\Entity\Category;
 use PitchBundle\Entity\Pitch;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-
 
 class FrontController extends Controller
 {
     /**
      * @Route("/", name="home_page")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $pitchs = $em->getRepository("PitchBundle:Pitch")->findBy(array(), array("createdAt" => "desc"), 10);
+        $pitchs = $em->getRepository("PitchBundle:Pitch")->findLastPitchs();
 
-        return $this->render('PitchBundle:Default:index.html.twig', array('pitchs' => $pitchs));
+        $paginator  = $this->get('knp_paginator');
+
+        $pagination = $paginator->paginate(
+            $pitchs,
+            $request->query->getInt('page', 1),
+            2
+        );
+
+        return $this->render('PitchBundle:Default:index.html.twig', array('pitchs' => $pagination));
     }
 
     /**

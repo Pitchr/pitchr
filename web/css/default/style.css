@@ -183,12 +183,12 @@ button:hover {
   margin-left: 10px;
 }
 .pagination_row .pagination li.active a {
-  background: #e74c3c;
-  color: #fff;
+  background: #e74c3c !important;
+  color: #fff !important;
 }
 .pagination_row .pagination li:first-child a,
 .pagination_row .pagination li:last-child a {
-  width: 90px;
+  width: 105px;
 }
 .page_cover {
   height: 200px;

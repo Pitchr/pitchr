@@ -5,11 +5,11 @@
             <div class="btn-group category_filter fleft">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                    <span class="filter-option pull-left">Categories</span>
+                    <span class="filter-option pull-left">{% if category is defined %}{{ category.title | upper }}{% else %}TOUTES{% endif %}</span>
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="#"><span class="filter_text">Toutes</span><span class="badge"></span></a></li>
+                    <li onclick="location.href='{{ path('home_page') }}'"><a href="#"><span class="filter_text">TOUTES</span><span class="badge"></span></a></li>
                     {{ render(controller('PitchBundle:Front:categoriesList')) }}
                 </ul>
             </div>
