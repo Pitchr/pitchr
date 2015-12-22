@@ -32,6 +32,7 @@ class LoadPitch implements FixtureInterface
         $user->setUsername('alessio');
         $user->setPassword('123');
         $user->setEmail('alessio@123.fr');
+        $user->setDescription('ma descriotino');
 
         foreach ($comments as $c) {
             $comment = new Comment();
