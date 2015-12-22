@@ -1,6 +1,9 @@
 <?php
 
 namespace PitchBundle\Repository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use PitchBundle\Entity\Pitch;
+use UserBundle\Entity\User;
 
 /**
  * PitchRepository
@@ -10,7 +13,12 @@ namespace PitchBundle\Repository;
  */
 class PitchRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findMorePitchs($user, $pitch)
+    /**
+     * @param User $user
+     * @param Pitch $pitch
+     * @return array
+     */
+    public function findMorePitchs(User $user, Pitch $pitch)
     {
         $qb = $this->createQueryBuilder('p');
 
@@ -22,5 +30,34 @@ class PitchRepository extends \Doctrine\ORM\EntityRepository
             ->setMaxResults(4);
 
         return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * Pagination
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function findLastPitchs(){
+
+        $qb = $this->createQueryBuilder('p')
+            ->orderBy('p.createdAt','desc');
+
+        return $qb;
+    }
+
+    /**
+     * Pagination
+     *
+     * @param User $user
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function findLastPitchsByUser(User $user){
+
+        $qb = $this->createQueryBuilder('p')
+            ->where('p.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('p.createdAt','desc');
+
+        return $qb;
     }
 }

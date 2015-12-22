@@ -32,7 +32,7 @@
                                         <dd>{{ user.username }}</dd>
 
                                         <dt>Pitcher depuis:</dt>
-                                        <dd>{{ user.createdAt | date('d/m/Y') }}</dd>
+                                        <dd>{{ user.createdAt | localizeddate('medium', 'none') }}</dd>
                                         <dt>Total Pitchs:</dt>
                                         <dd>{{ user.pitchs | length }}</dd>
 
@@ -67,20 +67,12 @@
                         <h3>Pitchs de {{ user.username }}</h3>
                     </div>
                     <div class="row">
-                        {% for pitch in user.pitchs %}
+                        {% for pitch in pitchs %}
                             {% include 'PitchBundle:Default:pitch_thumb_sm_4.html.twig' with {'pitch': pitch} %}
                         {% endfor %}
                     </div>
-                    <div class="row pagination_row">
-                        <ul class="pagination">
-                            <li><a href="#">previous</a></li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li class="disabled"><a href="#">...</a></li>
-                            <li><a href="#">next</a></li>
-                        </ul>
+                    <div class="navigation">
+                        {{ knp_pagination_render(pitchs) }}
                     </div>
                 </div>
                 <div class="col-sm-3 sidebar sidebar2">

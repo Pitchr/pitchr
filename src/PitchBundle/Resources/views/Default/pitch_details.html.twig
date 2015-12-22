@@ -28,11 +28,16 @@
                             <div class="media-left about_social">
                                 <div class="row m0 section_row author_section widget widget_recommended_to_follow">
                                     <div class="media">
-                                        <div class="media-left"><a href="page-author.html"><img
-                                                        src="http://uxart.io.dimgx.net/Products/video-cafe/images/follow/1.jpg"
-                                                        alt="" class="circle"></a></div>
+                                        <div class="media-left">
+                                            <a href="{{ path('fos_user_profile_show_name', {'username': pitch.user.username}) }}">
+                                                <img src="http://uxart.io.dimgx.net/Products/video-cafe/images/follow/1.jpg"
+                                                     alt="" class="circle">
+                                            </a>
+                                        </div>
                                         <div class="media-body media-middle">
-                                            <a href="page-author.html"><h5>{{ pitch.user.username }}</h5></a>
+                                            <a href="{{ path('fos_user_profile_show_name', {'username': pitch.user.username}) }}">
+                                                <h5>{{ pitch.user.username }}</h5>
+                                            </a>
 
                                             <div class="btn-group">
                                                 <a href="#" class="btn follower_count">34,000</a>
@@ -73,7 +78,7 @@
                                 <div class="row m0 about_section section_row single_video_info">
                                     <dl class="dl-horizontal">
                                         <dt>Publish Date:</dt>
-                                        <dd>{{ pitch.createdAt | date('d/m/Y') }}</dd>
+                                        <dd>{{ pitch.createdAt | localizeddate('medium', 'none') }}</dd>
 
                                         <dt>Category:</dt>
                                         <dd>{{ pitch.category.title }}</dd>
