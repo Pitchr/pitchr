@@ -160,7 +160,7 @@
                     {#<li><a href="{{ path("fos_user_registration_register") }}">Sign up</a></li>#}
                     {% if app.user %}
                         <li><a href="{{ path("fos_user_profile_show") }}">Accéder à mon profil</a></li>
-                        <li><a href="{{ path("fos_user_profile_show") }}">Se déconnecter</a></li>
+                        <li><a href="{{ path("fos_user_security_logout") }}">Se déconnecter</a></li>
                     {% endif %}
                 </ul>
             </li>

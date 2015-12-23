@@ -26,7 +26,7 @@ security:
 #                failure_handler: authentication_handler
             logout:
                 path:       fos_user_security_logout
-                target:     /logout
+                target:     /login
             remember_me:
                 secret:     %secret%
 
