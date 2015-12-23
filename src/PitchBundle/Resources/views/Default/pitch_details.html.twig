@@ -15,7 +15,7 @@
                     <div class="author_details post_details row m0">
                         <div class="embed-responsive embed-responsive-16by9">
                             <iframe class="embed-responsive-item"
-                                    src="https://www.youtube.com/embed/WTAHzO1i6Mw"></iframe>
+                                    src="https://www.youtube.com/embed/rK97ecsxd4g"></iframe>
                         </div>
                         <div class="row post_title_n_view">
                             <h2 class="col-sm-8 post_title">{{ pitch.title }}</h2>
@@ -47,7 +47,7 @@
                                     </div>
                                 </div>
                                 <div class="row m0 social_section section_row">
-                                    <h5>Social Accounts</h5>
+                                    <h5>Retrouvez-moi sur :</h5>
                                     <ul class="list-inline">
                                         <li><a href="#"><img src="{{ asset('images/icons/social/1.jpg') }}" alt=""></a>
                                         </li>
@@ -55,39 +55,23 @@
                                         </li>
                                         <li><a href="#"><img src="{{ asset('images/icons/social/3.jpg') }}" alt=""></a>
                                         </li>
-                                        <li><a href="#"><img src="{{ asset('images/icons/social/4.jpg') }}" alt=""></a>
-                                        </li>
-                                        <li><a href="#"><img src="{{ asset('images/icons/social/5.jpg') }}" alt=""></a>
-                                        </li>
-                                        <li><a href="#"><img src="{{ asset('images/icons/social/6.jpg') }}" alt=""></a>
-                                        </li>
-                                        <li><a href="#"><img src="{{ asset('images/icons/social/7.jpg') }}" alt=""></a>
-                                        </li>
-                                        <li><a href="#"><img src="{{ asset('images/icons/social/8.jpg') }}" alt=""></a>
-                                        </li>
                                         <li><a href="#"><img src="{{ asset('images/icons/social/9.jpg') }}" alt=""></a>
-                                        </li>
-                                        <li><a href="#"><img src="{{ asset('images/icons/social/10.jpg') }}" alt=""></a>
-                                        </li>
-                                        <li><a href="#"><img src="{{ asset('images/icons/social/11.jpg') }}" alt=""></a>
-                                        </li>
-                                        <li><a href="#"><img src="{{ asset('images/icons/social/12.jpg') }}" alt=""></a>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="row m0 about_section section_row single_video_info">
                                     <dl class="dl-horizontal">
-                                        <dt>Publish Date:</dt>
+                                        <dt>Publication:</dt>
                                         <dd>{{ pitch.createdAt | localizeddate('medium', 'none') }}</dd>
 
-                                        <dt>Category:</dt>
+                                        <dt>Categorie:</dt>
                                         <dd>{{ pitch.category.title }}</dd>
 
-                                        <dt>Video License</dt>
+                                        <!--<dt>Video License</dt>
                                         <dd>Standard License</dd>
 
                                         <dt>Imported From:</dt>
-                                        <dd>Youtube</dd>
+                                        <dd>Youtube</dd>-->
                                     </dl>
                                 </div>
                             </div>
@@ -191,7 +175,7 @@
                 </div>
                 <div class="col-sm-3 sidebar sidebar2">
                     <div class="row m0 sidebar_row_inner">
-                        <!--Search Form-->
+                        <!--Search Form
                         <form action="#" role="search" class="search_form row m0 widget widget_search">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search Here">
@@ -199,10 +183,10 @@
                                     <img src="{{ asset('images/icons/search.png') }}" alt=""></button>
                             </span>
                             </div>
-                        </form>
+                        </form>-->
                         <!--Sponsored Area-->
                         <div class="row m0 widget widget_sponsored_area">
-                            <h5 class="widget_title">sponsored area</h5>
+                            <h5 class="widget_title">Envie de lancer votre startup</h5>
 
                             <div class="row m0 inner">
                                 <div class="row m0 advertise_betweeen_uploads">
@@ -242,7 +226,7 @@
                         {% endif %}
                         <!--Recommended for You-->
                         <div class="row m0 widget widget_popular_videos">
-                            <h5 class="widget_title">Recommended for you</h5>
+                            <h5 class="widget_title">Pitchs qui peuvent t'intéresser</h5>
 
                             <div class="row m0 inner">
                                 <div class="media">

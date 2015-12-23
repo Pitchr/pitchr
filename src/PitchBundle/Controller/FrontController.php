@@ -46,6 +46,12 @@ class FrontController extends Controller
         $user = $pitch->getUser();
 
         $em = $this->getDoctrine()->getManager();
+        
+        // Permets d'incrémenter le compteur de vues.
+        $pitch->setViews($pitch->getViews()+1);
+        $em->persist($pitch);
+        $em->flush();
+        
         $more_pitchs = $em->getRepository("PitchBundle:Pitch")->findMorePitchs($user, $pitch);
 
         return $this->render('PitchBundle:Default:pitch_details.html.twig', array('pitch' => $pitch, 'more_pitchs' => $more_pitchs));
