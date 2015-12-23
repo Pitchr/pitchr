@@ -69,13 +69,10 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">
-                        <span class="home_variation_icon"></span>Home variations
+                        <span class="home_variation_icon"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="index.html">Home Page Version 1</a></li>
-                        <li><a href="index2.html">Home Page Version 2</a></li>
-                        <li><a href="index3.html">Home Page Version 3</a></li>
-                        <li><a href="index4.html">Home Page Version 4</a></li>
+                        <li><a href="index.html">Pitchr, c'est quoi?</a></li>
                     </ul>
                 </li>
                 <li class="dropdown mega-drop">
@@ -94,8 +91,7 @@
                                                  alt="" class="preview">
                                             <a href="single-video.html" class="play-btn"></a>
                                         </div>
-                                        <div class="title_row row m0"><a href="single-video.html">Duis aute irure dolor
-                                                in adipsicing elit</a></div>
+                                        <div class="title_row row m0"><a href="single-video.html">Pourquoi il faut savoir pitcher?</a></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
@@ -105,8 +101,7 @@
                                                  alt="" class="preview">
                                             <a href="single-video.html" class="play-btn"></a>
                                         </div>
-                                        <div class="title_row row m0"><a href="single-video.html">Duis aute irure dolor
-                                                in adipsicing elit</a></div>
+                                        <div class="title_row row m0"><a href="single-video.html">Les 8 étapes clefs du pitch</a></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
@@ -116,8 +111,7 @@
                                                  alt="" class="preview">
                                             <a href="single-video.html" class="play-btn"></a>
                                         </div>
-                                        <div class="title_row row m0"><a href="single-video.html">Duis aute irure dolor
-                                                in adipsicing elit</a></div>
+                                        <div class="title_row row m0"><a href="single-video.html">Améliore ton pitch.</a></div>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
@@ -127,8 +121,7 @@
                                                  alt="" class="preview">
                                             <a href="single-video.html" class="play-btn"></a>
                                         </div>
-                                        <div class="title_row row m0"><a href="single-video.html">Duis aute irure dolor
-                                                in adipsicing elit</a></div>
+                                        <div class="title_row row m0"><a href="single-video.html">Entraine-toi !</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -141,11 +134,9 @@
                         <span class="extra_pages_icon"></span>Nous contacter
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ path("fos_user_security_check") }}">Login</a></li>
-                        <li><a href="signup-popup.html">Sign Up</a></li>
-                        <li><a href="single-video.html">Single Video</a></li>
-                        <li><a href="page-author.html">Auther Profile</a></li>
-                        <li><a href="category.html">Category Page</a></li>
+                        <li><a href="single-video.html">Par mail</a></li>
+                        <li><a href="https://facebook.com/">Par facebook</a></li>
+                        <li><a href="https://twitter.com/pitchr_">Par twitter</a></li>
                     </ul>
                 </li>
             </ul>
@@ -154,14 +145,22 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                    aria-expanded="false">
-                    <span class="login_icon"></span> Mon compte
+                    {% if app.user %}
+                        <img src="{{ gravatar(app.user.email,50) }}" class="img-circle"/>
+                    {% endif %}
+                    {% if not app.user %}
+                        <span class="login_icon"></span> Se connecter
+                    {% endif %}
                 </a>
                 <ul class="dropdown-menu">
+                    {% if not app.user %}
                     <li><a href="{{ path("fos_user_security_login") }}">Login</a></li>
                     <li><a href="{{ path("fos_user_registration_register") }}">Sign Up</a></li>
+                    {% endif %}
                     {#<li><a href="{{ path("fos_user_registration_register") }}">Sign up</a></li>#}
                     {% if app.user %}
-                        <li><a href="{{ path("fos_user_profile_show") }}">{{ app.user }}</a></li>
+                        <li><a href="{{ path("fos_user_profile_show") }}">Accéder à mon profil</a></li>
+                        <li><a href="{{ path("fos_user_profile_show") }}">Se déconnecter</a></li>
                     {% endif %}
                 </ul>
             </li>

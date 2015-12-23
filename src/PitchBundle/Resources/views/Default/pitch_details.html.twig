@@ -30,8 +30,7 @@
                                     <div class="media">
                                         <div class="media-left">
                                             <a href="{{ path('fos_user_profile_show_name', {'username': pitch.user.username}) }}">
-                                                <img src="http://uxart.io.dimgx.net/Products/video-cafe/images/follow/1.jpg"
-                                                     alt="" class="circle">
+                                                <img src="{{ gravatar('pitch.user.email') }}" class="circle"/>
                                             </a>
                                         </div>
                                         <div class="media-body media-middle">
@@ -230,9 +229,12 @@
 
                             <div class="row m0 inner">
                                 <div class="media">
-                                    <div class="media-left"><a href="single-video.html"><img
+                                    <div class="media-left">
+                                        <a href="single-video.html">
+                                            <img
                                                     src="http://uxart.io.dimgx.net/Products/video-cafe/images/popular/1.jpg"
-                                                    alt=""><span class="duration">17:30</span></a></div>
+                                                    alt="">
+                                            <span class="duration">17:30</span></a></div>
                                     <div class="media-body">
                                         <a href="single-video.html">
                                             <h5>Lorem ipsum dolor si amet etur adipis</h5>
