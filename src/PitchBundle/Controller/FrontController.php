@@ -85,4 +85,15 @@ class FrontController extends Controller
         return $this->render('PitchBundle:Default:categories_list.html.twig', array('categories' => $categories));
     }
 
+    /**
+    * @return Response instance
+    */
+    public function pitchesMostViewedListAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $pitches = $em->getRepository("PitchBundle:Category")->findAllMostViewed();
+
+        return $this->render('PitchBundle:Default:categories_list.html.twig', array('categories' => $categories));
+    }
+
 }
