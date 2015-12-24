@@ -24,7 +24,7 @@ class FrontController extends Controller
         $pagination = $paginator->paginate(
             $pitchs,
             $request->query->getInt('page', 1),
-            2
+            4
         );
 
         return $this->render('PitchBundle:Default:index.html.twig', array('pitchs' => $pagination));
@@ -53,8 +53,9 @@ class FrontController extends Controller
         $em->flush();
         
         $more_pitchs = $em->getRepository("PitchBundle:Pitch")->findMorePitchs($user, $pitch);
+        $all_pitchs = $em->getRepository("PitchBundle:Pitch")->findAll();
 
-        return $this->render('PitchBundle:Default:pitch_details.html.twig', array('pitch' => $pitch, 'more_pitchs' => $more_pitchs));
+        return $this->render('PitchBundle:Default:pitch_details.html.twig', array('pitch' => $pitch, 'more_pitchs' => $more_pitchs, 'all_pitchs' => $all_pitchs));
     }
 
     /**
@@ -83,4 +84,5 @@ class FrontController extends Controller
 
         return $this->render('PitchBundle:Default:categories_list.html.twig', array('categories' => $categories));
     }
+
 }
