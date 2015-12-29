@@ -354,4 +354,18 @@ class Pitch
     {
         return $this->user;
     }
+
+    /**
+    * Returns a safe object of this entity
+    * @return object safeObject
+    */
+    public function getSafeObject() {
+        return array("title" => $this->getTitle(),
+        "description" => $this->getDescription(),
+        "slug" => $this->getSlug(),
+        "views" => $this->getViews(),
+        "created_at" => $this->getCreatedAt(),
+        "updated_at" => $this->getUpdatedAt(),
+        "category" => $this->getCategory()->getSlug());
+    }
 }

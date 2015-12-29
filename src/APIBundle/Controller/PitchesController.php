@@ -29,5 +29,28 @@ class PitchesController extends FOSRestController {
       $view = $this->view($pitches,200);
       return $this->handleView($view);
   }
+
+  /**
+  * Gets a single pitch by slug
+  *
+  * @Get("/pitches/{slug}")
+  * @Route(requirements={"_format"="json"})
+  * @param ParamFetcher $paramFetcher
+  * @param string $slug
+  * @ApiDoc(
+  *  description="This is a description of your API method",
+  * )
+  */
+  public function getPitchAction (ParamFetcher $paramFetcher,$slug) {
+      $em = $this->getDoctrine()->getManager();
+      $pitch = $em->getRepository("PitchBundle:Pitch")->findOneBy(array("slug" => $slug));
+      if (isset($pitch)) {
+          $view = $this->view($pitch->getSafeObject(),200);
+      }
+      else {
+          $view = $this->view($pitch,200);
+      }
+      return $this->handleView($view);
+  }
 }
 ?>
