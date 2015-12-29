@@ -24,7 +24,11 @@ class AppKernel extends Kernel
             new Ornicar\GravatarBundle\OrnicarGravatarBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new UserBundle\UserBundle(),
-            new PitchBundle\PitchBundle()
+            new PitchBundle\PitchBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
+            new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
+            new APIBundle\APIBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

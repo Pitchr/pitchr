@@ -35,21 +35,21 @@ class PitchRepository extends \Doctrine\ORM\EntityRepository
     /**
      * Pagination
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return array
      */
     public function findLastPitchs(){
 
         $qb = $this->createQueryBuilder('p')
             ->orderBy('p.createdAt','desc');
 
-        return $qb;
+        return $qb->getQuery()->getResult();
     }
 
     /**
      * Pagination
      *
      * @param User $user
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return array
      */
     public function findLastPitchsByUser(User $user){
 
@@ -58,6 +58,35 @@ class PitchRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('user', $user)
             ->orderBy('p.createdAt','desc');
 
-        return $qb;
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+    * Filters the pitches according to limit, offset and sorts
+    * @param array $query array("limit" => 10, "offset" => 0, "sort" => "-created_at")
+    * @return array of results
+    */
+    public function filterPitchesByQuery(array $query) {
+        $qb = $this->createQueryBuilder('p')->select('p.slug');
+        if (isset($query['sort'])) {
+            if (!substr_compare($query['sort'],'-',0,1)) {
+                $cutoff = substr($query['sort'],1);
+                if (in_array($cutoff,$this->getClassMetadata()->getFieldNames()))
+                  $qb->addOrderBy('p.'.substr($query['sort'],1),'DESC');
+            }
+            else {
+                if (in_array($query['sort'],$this->getClassMetadata()->getFieldNames()))
+                  $qb->addOrderBy('p.'.$query['sort'],'ASC');
+            }
+        }
+        if (isset($query['limit'])) {
+            $qb->setMaxResults($query['limit']);
+        }
+        if (isset($query['offset'])) {
+            $qb->setFirstResult($query['offset']);
+        }
+        return array_map(function ($item) {
+            return $item['slug'];
+        },$qb->getQuery()->getResult());
     }
 }
