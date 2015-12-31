@@ -1,0 +1,3 @@
+pitches:
+    type: rest
+    resource: "@APIBundle/Controller/PitchesController.php"

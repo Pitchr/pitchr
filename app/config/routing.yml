@@ -32,7 +32,7 @@ NelmioApiDocBundle:
     prefix:   /api/doc
 
 api:
-    resource: "@APIBundle/Controller"
-    type: annotation
+    resource: "@APIBundle/Resources/config/routes.yml"
+    type: rest
     defaults: {_format: "json"}
-    prefix: /api/
+    prefix: /api

@@ -366,6 +366,7 @@ class Pitch
         "views" => $this->getViews(),
         "created_at" => $this->getCreatedAt(),
         "updated_at" => $this->getUpdatedAt(),
-        "category" => $this->getCategory()->getSlug());
+        "category" => $this->getCategory()->getSlug(),
+        "user" => $this->getUser()->getId());
     }
 }

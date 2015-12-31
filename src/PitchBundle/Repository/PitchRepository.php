@@ -68,7 +68,7 @@ class PitchRepository extends \Doctrine\ORM\EntityRepository
     */
     public function filterPitchesByQuery(array $query) {
         $qb = $this->createQueryBuilder('p')->select('p.slug');
-        if (isset($query['sort'])) {
+        if (!empty($query['sort'])) {
             if (!substr_compare($query['sort'],'-',0,1)) {
                 $cutoff = substr($query['sort'],1);
                 if (in_array($cutoff,$this->getClassMetadata()->getFieldNames()))
