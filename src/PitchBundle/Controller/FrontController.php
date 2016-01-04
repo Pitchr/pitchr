@@ -69,7 +69,7 @@ class FrontController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
-        $pitchs = $em->getRepository("PitchBundle:Pitch")->findBy(array('category' => $category->getId()), array('createdAt' => 'desc'), 11);
+        $pitchs = $em->getRepository("PitchBundle:Pitch")->findBy(array('category' => $category->getId()), array('createdAt' => 'desc'), 12);
 
         return $this->render('PitchBundle:Default:category.html.twig', array('category' => $category, 'pitchs' => $pitchs));
     }

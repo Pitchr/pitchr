@@ -226,22 +226,27 @@
                         <!--Recommended for You-->
                         <div class="row m0 widget widget_popular_videos">
                             <h5 class="widget_title">Pitchs qui peuvent t'intéresser</h5>
+
                             <div class="row m0 inner">
                                 <!-- details pitchs sur la droite -->
-                                {% for i in 0..3 %}
-                                <div class="media">
-                                    <div class="media-left"><a href="{{ path('pitch_details', {'slug': all_pitchs[i].slug}) }}"><img
-                                                    src="http://uxart.io.dimgx.net/Products/video-cafe/images/popular/4.jpg"
-                                                    alt=""><span class="duration">1:03</span></a></div>
-                                    <div class="media-body">
-                                        <a href="{{ path('pitch_details', {'slug': all_pitchs[i].slug}) }}">
-                                            <h5>{{ all_pitchs[i].title }}</h5>
-                                        </a>
+                                {% for pitch in all_pitchs | slice(0,3) %}
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <a href="{{ path('pitch_details', {'slug': pitch.slug}) }}">
+                                                <img src="http://uxart.io.dimgx.net/Products/video-cafe/images/popular/4.jpg"
+                                                     alt="">
+                                                <span class="duration">1:03</span>
+                                            </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <a href="{{ path('pitch_details', {'slug': pitch.slug}) }}">
+                                                <h5>{{ pitch.title }}</h5>
+                                            </a>
 
-                                        <div class="row m0 meta_info views">{{ all_pitchs[i].views }} vues</div>
-                                        <div class="row m0 meta_info posted">{{ all_pitchs[i].createdAt | localizeddate('medium', 'none') }}</div>
+                                            <div class="row m0 meta_info views">{{ pitch.views }} vues</div>
+                                            <div class="row m0 meta_info posted">{{ pitch.createdAt | localizeddate('medium', 'none') }}</div>
+                                        </div>
                                     </div>
-                                </div>
                                 {% endfor %}
                                 <!-- fin details pitchs -->
                             </div>
