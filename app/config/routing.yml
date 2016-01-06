@@ -36,3 +36,6 @@ api:
     type: rest
     defaults: {_format: "json"}
     prefix: /api
+
+api_login_check:
+    path: /api/login_check

@@ -45,3 +45,6 @@ Vagrantfile
 
 #Assetic files
 /web/assetic/*
+
+#lexik/jwt-authentication-bundle SSH keys
+/app/var/jwt/*
