@@ -74,7 +74,7 @@ class LoadPitch implements FixtureInterface
 
         $user = new User();
         $user->setUsername('Xavier');
-        $user->setPassword('123456789');
+        $user->setPlainPassword('deadpool');
         $user->setEmail('xkoma@nextoo.fr');
         $user->setDescription('Food & Drinking');
 

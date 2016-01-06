@@ -4,6 +4,7 @@ namespace PitchBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * Pitch
@@ -27,6 +28,7 @@ class Pitch
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Groups({"post","put"})
      */
     private $title;
 
@@ -34,6 +36,7 @@ class Pitch
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=false)
+     * @Groups({"post","put"})
      */
     private $description;
 
@@ -74,6 +77,7 @@ class Pitch
     /**
      * @ORM\ManyToOne(targetEntity="PitchBundle\Entity\Category", inversedBy="pitchs", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"post","put"})
      */
     private $category;
 
@@ -367,6 +371,6 @@ class Pitch
         "created_at" => $this->getCreatedAt(),
         "updated_at" => $this->getUpdatedAt(),
         "category" => $this->getCategory()->getSlug(),
-        "user" => $this->getUser()->getId());
+        "user" => $this->getUser()->getUsernameCanonical());
     }
 }

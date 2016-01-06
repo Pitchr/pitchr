@@ -15,6 +15,14 @@
       "Tests\\": "tests/"
     }
   },
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/lexik/LexikJWTAuthenticationBundle"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "require": {
     "php": ">=5.5.9",
     "symfony/symfony": "3.0.*",
@@ -35,7 +43,8 @@
     "ornicar/gravatar-bundle" : "~1.0",
     "friendsofsymfony/rest-bundle": "^1.7",
     "jms/serializer-bundle": "^1.1",
-    "nelmio/api-doc-bundle": "^2.11"
+    "nelmio/api-doc-bundle": "^2.11",
+    "lexik/jwt-authentication-bundle": "dev-master"
   },
   "require-dev": {
     "sensio/generator-bundle": "^3.0",

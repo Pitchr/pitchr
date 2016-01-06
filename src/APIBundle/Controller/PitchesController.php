@@ -10,6 +10,9 @@ use FOS\RestBundle\Controller\Annotations\RequestParam;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use PitchBundle\Entity\Pitch;
+use PitchBundle\Entity\Category;
+use UserBundle\Entity\User;
 
 class PitchesController extends FOSRestController {
   /**
@@ -24,6 +27,7 @@ class PitchesController extends FOSRestController {
   * @ApiDoc(statusCodes={200="Success"})
   */
   public function getPitchesAction (ParamFetcher $paramFetcher) {
+
       $em = $this->getDoctrine()->getManager();
       $pitches = $em->getRepository("PitchBundle:Pitch")->filterObjectsByQuery($paramFetcher->all(), 'slug');
       $view = $this->view(array("success" => true,"pitches" => $pitches,"amount" => count($pitches)),200);
@@ -55,12 +59,30 @@ class PitchesController extends FOSRestController {
   * Creates a new pitch
   *
   * @Post("/pitches/",requirements={"_format"="json"})
-  * @RequestParam(name="title",description="Title of the pitch",nullable=true,strict=false,requirements="[a-z]+")
+  * @RequestParam(name="title",requirements=".+")
+  * @RequestParam(name="description",requirements=".+")
+  * @RequestParam(name="category",requirements=".+")
   * @param ParamFetcher $paramFetcher
-  * @ApiDoc(input="PitchBundle\Entity\Pitch")
+  * @ApiDoc(input={"class"="PitchBundle\Entity\Pitch","groups"={"post"}})
   */
   public function postPitchAction(ParamFetcher $paramFetcher) {
-
+      $user = $this->getUser();
+      $em = $this->getDoctrine()->getManager();
+      $category = $em->getRepository("PitchBundle:Category")->findOneBy(array("slug" => $paramFetcher->get('category')));
+      if (empty($category)) {
+          $view = $this->view(array("success" => false,"message" => "Unknown category : '".$paramFetcher->get('category')."'"),400);
+          return $this->handleView($view);
+      }
+      $pitch = new Pitch();
+      $pitch->setTitle($paramFetcher->get('title'));
+      $pitch->setDescription($paramFetcher->get('description'));
+      $pitch->setUser($user);
+      $pitch->setCategory($category);
+      $user->addPitch($pitch);
+      $em->persist($user);
+      $em->flush();
+      $view = $this->view(array("success" => true,"pitch" => $pitch->getSafeObject()),201);
+      return $this->handleView($view);
   }
 }
 ?>

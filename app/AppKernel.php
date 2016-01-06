@@ -28,7 +28,8 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
-            new APIBundle\APIBundle()
+            new APIBundle\APIBundle(),
+            new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
