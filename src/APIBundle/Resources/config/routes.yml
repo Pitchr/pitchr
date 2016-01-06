@@ -1,3 +1,7 @@
 pitches:
     type: rest
     resource: "@APIBundle/Controller/PitchesController.php"
+
+comments:
+    type: rest
+    resource: "@APIBundle/Controller/CommentsController.php"

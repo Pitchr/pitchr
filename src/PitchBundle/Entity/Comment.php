@@ -63,6 +63,7 @@ class Comment
     public function __construct()
     {
         $this->createdAt = new \Datetime();
+        $this->vote = 0;
     }
 
     /**
@@ -203,5 +204,20 @@ class Comment
     public function getPitch()
     {
         return $this->pitch;
+    }
+
+    /**
+     * Returns a safe object of this entity
+     * @return object safeObject
+     */
+    public function getSafeObject() {
+        return array(
+            "id" => $this->getId(),
+            "text" => $this->getText(),
+            "pitch" => $this->getPitch()->getSlug(),
+            "vote" => $this->getVote(),
+            "created_at" => $this->getCreatedAt(),
+            "updated_at" => $this->getUpdatedAt()
+        );
     }
 }

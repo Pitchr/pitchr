@@ -25,7 +25,7 @@ class PitchesController extends FOSRestController {
   */
   public function getPitchesAction (ParamFetcher $paramFetcher) {
       $em = $this->getDoctrine()->getManager();
-      $pitches = $em->getRepository("PitchBundle:Pitch")->filterPitchesByQuery($paramFetcher->all());
+      $pitches = $em->getRepository("PitchBundle:Pitch")->filterObjectsByQuery($paramFetcher->all(), 'slug');
       $view = $this->view(array("success" => true,"pitches" => $pitches,"amount" => count($pitches)),200);
       return $this->handleView($view);
   }
