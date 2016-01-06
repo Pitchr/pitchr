@@ -1,0 +1,18 @@
+<div class="media comment">
+    <div class="media-left">
+        <a href="{{ path('fos_user_profile_show_name', {'username': comment.user.username}) }}">
+            <img src="{{ gravatar(comment.user.email,70) }}" class="img-circle"/>
+        </a>
+    </div>
+    <div class="media-body">
+        <div class="comment_header">
+            <h5>
+                <a href="#" class="author_name">{{ comment.user.username }}</a>
+                <span class="time_ago">10 minutes ago</span>
+                <a href="#reply" class="reply_link" data-comment="{{ comment.id }}">Reply</a>
+            </h5>
+        </div>
+        <p>{{ comment.text }}</p>
+         <!--Comment Reply-->
+    </div>
+</div>

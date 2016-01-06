@@ -14,12 +14,12 @@
             </div>
             <div class="row media-grid content_video_posts">
                 <div class="jscroll-inner">
-                    {% for pitch in pitchs %}
+                    {% for pitch in pitches %}
                         {% include 'PitchBundle:Default:pitch_thumb_sm_3.html.twig' with {'pitch': pitch} %}
                     {% endfor %}
                     <div class="row m0">
                         <div class="clearfix"></div>
-                        <a href="inc/more-uploads-1.html" class="load_more_videos">Load more videos</a>
+                        {#<a href="inc/more-uploads-1.html" class="load_more_videos">Load more videos</a>#}
                     </div>
                 </div>
             </div>

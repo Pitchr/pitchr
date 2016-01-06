@@ -72,14 +72,14 @@ class Pitch
     private $comments;
 
     /**
-     * @ORM\ManyToOne(targetEntity="PitchBundle\Entity\Category", inversedBy="pitchs", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="PitchBundle\Entity\Category", inversedBy="pitches", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
 
     /**
      * @var User
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="pitchs")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="pitches")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;

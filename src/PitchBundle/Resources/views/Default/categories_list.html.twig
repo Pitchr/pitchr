@@ -2,7 +2,7 @@
     <li onclick="location.href='{{ path('category', {'slug': category.slug}) }}'">
         <a href="#">
             <span class="filter_text">{{ category.title | upper }}</span>
-            <span class="badge">{{ category.pitchs | length }}</span>
+            <span class="badge">{{ category.pitches | length }}</span>
         </a>
     </li>
 {% endfor %}

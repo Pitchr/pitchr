@@ -18,7 +18,7 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
             ->select('SUM(p.views)')
             ->where('u.id = :id')
             ->setParameter('id', $user->getId())
-            ->join('u.pitchs', 'p');
+            ->join('u.pitches', 'p');
 
         return $qb->getQuery()->getSingleScalarResult();
     }

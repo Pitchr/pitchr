@@ -37,11 +37,18 @@ class User extends BaseUser
     private $createdAt;
 
     /**
-     * @var ArrayCollection $pitchs
+     * @var ArrayCollection $pitches
      * @ORM\OneToMany(targetEntity="PitchBundle\Entity\Pitch", mappedBy="user", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      */
-    private $pitchs;
+    private $pitches;
+
+    /**
+     * @var ArrayCollection $comments
+     * @ORM\OneToMany(targetEntity="PitchBundle\Entity\Comment", mappedBy="user", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $comments;
 
     /**
      * Constructor
@@ -71,7 +78,7 @@ class User extends BaseUser
      */
     public function addPitch(\PitchBundle\Entity\Pitch $pitch)
     {
-        $this->pitchs[] = $pitch;
+        $this->pitches[] = $pitch;
 
         return $this;
     }
@@ -83,17 +90,17 @@ class User extends BaseUser
      */
     public function removePitch(\PitchBundle\Entity\Pitch $pitch)
     {
-        $this->pitchs->removeElement($pitch);
+        $this->pitches->removeElement($pitch);
     }
 
     /**
-     * Get pitchs
+     * Get pitches
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPitchs()
+    public function getPitches()
     {
-        return $this->pitchs;
+        return $this->pitches;
     }
 
     /**
@@ -142,5 +149,39 @@ class User extends BaseUser
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \PitchBundle\Entity\Comment $comment
+     *
+     * @return User
+     */
+    public function addComment(\PitchBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \PitchBundle\Entity\Comment $comment
+     */
+    public function removeComment(\PitchBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

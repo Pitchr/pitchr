@@ -1,0 +1,10 @@
+{{ form_start(form, {'method': 'post', 'action': path('comment_add', {'pitch': pitch.id}), 'attr': {'class': '', 'role': 'form'}}) }}
+    <h5>Donne ton avis:</h5>
+
+    {{ form_widget(form.text, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.text) }}
+
+    {{ form_rest(form) }}
+
+    <input type="submit" value="Commenter" class="btn btn default">
+{{ form_end(form) }}

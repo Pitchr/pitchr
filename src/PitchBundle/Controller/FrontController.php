@@ -3,11 +3,13 @@
 namespace PitchBundle\Controller;
 
 use PitchBundle\Entity\Category;
+use PitchBundle\Entity\Comment;
 use PitchBundle\Entity\Pitch;
+use PitchBundle\Form\CommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class FrontController extends Controller
 {
@@ -17,17 +19,17 @@ class FrontController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $pitchs = $em->getRepository("PitchBundle:Pitch")->findLastPitchs();
+        $pitches = $em->getRepository("PitchBundle:Pitch")->findLastPitches();
 
-        $paginator  = $this->get('knp_paginator');
+        $paginator = $this->get('knp_paginator');
 
         $pagination = $paginator->paginate(
-            $pitchs,
+            $pitches,
             $request->query->getInt('page', 1),
-            4
+            2
         );
 
-        return $this->render('PitchBundle:Default:index.html.twig', array('pitchs' => $pagination));
+        return $this->render('PitchBundle:Default:index.html.twig', array('pitches' => $pagination));
     }
 
     /**
@@ -46,16 +48,16 @@ class FrontController extends Controller
         $user = $pitch->getUser();
 
         $em = $this->getDoctrine()->getManager();
-        
+
         // Permets d'incrémenter le compteur de vues.
-        $pitch->setViews($pitch->getViews()+1);
+        $pitch->setViews($pitch->getViews() + 1);
         $em->persist($pitch);
         $em->flush();
-        
-        $more_pitchs = $em->getRepository("PitchBundle:Pitch")->findMorePitchs($user, $pitch);
-        $all_pitchs = $em->getRepository("PitchBundle:Pitch")->findAll();
 
-        return $this->render('PitchBundle:Default:pitch_details.html.twig', array('pitch' => $pitch, 'more_pitchs' => $more_pitchs, 'all_pitchs' => $all_pitchs));
+        $more_pitches = $em->getRepository("PitchBundle:Pitch")->findMorePitches($user, $pitch);
+        $all_pitches = $em->getRepository("PitchBundle:Pitch")->findAll();
+
+        return $this->render('PitchBundle:Default:pitch_details.html.twig', array('pitch' => $pitch, 'more_pitches' => $more_pitches, 'all_pitches' => $all_pitches));
     }
 
     /**
@@ -69,9 +71,9 @@ class FrontController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
-        $pitchs = $em->getRepository("PitchBundle:Pitch")->findBy(array('category' => $category->getId()), array('createdAt' => 'desc'), 12);
+        $pitches = $em->getRepository("PitchBundle:Pitch")->findBy(array('category' => $category->getId()), array('createdAt' => 'desc'), 12);
 
-        return $this->render('PitchBundle:Default:category.html.twig', array('category' => $category, 'pitchs' => $pitchs));
+        return $this->render('PitchBundle:Default:category.html.twig', array('category' => $category, 'pitches' => $pitches));
     }
 
     /**
@@ -86,14 +88,31 @@ class FrontController extends Controller
     }
 
     /**
-    * @return Response instance
-    */
-    public function pitchesMostViewedListAction()
+     * @Route("/comment-add/{pitch}", name="comment_add")
+     * @return Response instance
+     */
+    public function commentAddAction(Request $request, Pitch $pitch)
     {
-        $em = $this->getDoctrine()->getManager();
-        $pitches = $em->getRepository("PitchBundle:Category")->findAllMostViewed();
+//todo: verfier si connecté
 
-        return $this->render('PitchBundle:Default:categories_list.html.twig', array('categories' => $categories));
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $comment->setPitch($pitch);
+            $comment->setUser($this->getUser());
+            $em->persist($comment);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('pitch_details', array('slug' => $pitch->getSlug())));
+        }
+
+        return $this->render('PitchBundle:Default:comment_add.html.twig', array(
+            'form' => $form->createView(),
+            'pitch' => $pitch
+        ));
     }
-
 }

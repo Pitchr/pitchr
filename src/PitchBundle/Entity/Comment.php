@@ -3,10 +3,12 @@
 namespace PitchBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Comment
  *
+ * @Gedmo\Tree(type="nested")
  * @ORM\Table(name="comment")
  * @ORM\Entity(repositoryClass="PitchBundle\Repository\CommentRepository")
  * @ORM\HasLifecycleCallbacks()
@@ -21,6 +23,43 @@ class Comment
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @Gedmo\TreeLeft
+     * @ORM\Column(name="lft", type="integer")
+     */
+    private $lft;
+
+    /**
+     * @Gedmo\TreeLevel
+     * @ORM\Column(name="lvl", type="integer")
+     */
+    private $lvl;
+
+    /**
+     * @Gedmo\TreeRight
+     * @ORM\Column(name="rgt", type="integer")
+     */
+    private $rgt;
+
+    /**
+     * @Gedmo\TreeRoot
+     * @ORM\Column(name="root", type="integer", nullable=true)
+     */
+    private $root;
+
+    /**
+     * @Gedmo\TreeParent
+     * @ORM\ManyToOne(targetEntity="PitchBundle\Entity\Comment", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="PitchBundle\Entity\Comment", mappedBy="parent")
+     * @ORM\OrderBy({"lft" = "ASC"})
+     */
+    private $children;
 
     /**
      * @var string
@@ -56,6 +95,13 @@ class Comment
      * @ORM\JoinColumn(nullable=false)
      */
     private $pitch;
+
+    /**
+     * @var User
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     /**
      * Constructor
@@ -203,5 +249,183 @@ class Comment
     public function getPitch()
     {
         return $this->pitch;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \UserBundle\Entity\User $user
+     *
+     * @return Comment
+     */
+    public function setUser(\UserBundle\Entity\User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set lft
+     *
+     * @param integer $lft
+     *
+     * @return Comment
+     */
+    public function setLft($lft)
+    {
+        $this->lft = $lft;
+
+        return $this;
+    }
+
+    /**
+     * Get lft
+     *
+     * @return integer
+     */
+    public function getLft()
+    {
+        return $this->lft;
+    }
+
+    /**
+     * Set lvl
+     *
+     * @param integer $lvl
+     *
+     * @return Comment
+     */
+    public function setLvl($lvl)
+    {
+        $this->lvl = $lvl;
+
+        return $this;
+    }
+
+    /**
+     * Get lvl
+     *
+     * @return integer
+     */
+    public function getLvl()
+    {
+        return $this->lvl;
+    }
+
+    /**
+     * Set rgt
+     *
+     * @param integer $rgt
+     *
+     * @return Comment
+     */
+    public function setRgt($rgt)
+    {
+        $this->rgt = $rgt;
+
+        return $this;
+    }
+
+    /**
+     * Get rgt
+     *
+     * @return integer
+     */
+    public function getRgt()
+    {
+        return $this->rgt;
+    }
+
+    /**
+     * Set root
+     *
+     * @param integer $root
+     *
+     * @return Comment
+     */
+    public function setRoot($root)
+    {
+        $this->root = $root;
+
+        return $this;
+    }
+
+    /**
+     * Get root
+     *
+     * @return integer
+     */
+    public function getRoot()
+    {
+        return $this->root;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \PitchBundle\Entity\Comment $parent
+     *
+     * @return Comment
+     */
+    public function setParent(\PitchBundle\Entity\Comment $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \PitchBundle\Entity\Comment
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Add child
+     *
+     * @param \PitchBundle\Entity\Comment $child
+     *
+     * @return Comment
+     */
+    public function addChild(\PitchBundle\Entity\Comment $child)
+    {
+        $this->children[] = $child;
+
+        return $this;
+    }
+
+    /**
+     * Remove child
+     *
+     * @param \PitchBundle\Entity\Comment $child
+     */
+    public function removeChild(\PitchBundle\Entity\Comment $child)
+    {
+        $this->children->removeElement($child);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
     }
 }
