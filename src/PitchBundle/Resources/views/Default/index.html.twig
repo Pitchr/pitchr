@@ -33,19 +33,19 @@
     <section class="row recent_uploads">
         <div class="container">
             <div class="row title_row">
-                <h3>Derniers pitchs ajoutés</h3>
+                <h3>Derniers pitches ajoutés</h3>
             </div>
             <div class="row media-grid content_video_posts">
                 <div class="jscroll-inner">
-                    {% for pitch in pitchs %}
+                    {% for pitch in pitches %}
                         {% include 'PitchBundle:Default:pitch_thumb_sm_3.html.twig' with {'pitch': pitch} %}
                     {% endfor %}
                     <div class="row m0">
                         <div class="clearfix"></div>
                         <div class="navigation">
-                            {{ knp_pagination_render(pitchs) }}
+                            {{ knp_pagination_render(pitches) }}
                         </div>
-                        <a href="inc/more-uploads-1.html" class="load_more_videos">Charger plus de pitchs</a>
+                        {#<a href="inc/more-uploads-1.html" class="load_more_videos">Charger plus de pitches</a>#}
                     </div>
                 </div>
             </div>

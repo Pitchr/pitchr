@@ -26,12 +26,12 @@ class ProfileController extends BaseController
         }
         $em = $this->getDoctrine()->getManager();
         $views = $em->getRepository('UserBundle:User')->findTotalPitchViewsByUser($user);
-        $pitchs = $em->getRepository('PitchBundle:Pitch')->findLastPitchsByUser($user);
+        $pitches = $em->getRepository('PitchBundle:Pitch')->findLastPitchesByUser($user);
 
         $paginator = $this->get('knp_paginator');
 
         $pagination = $paginator->paginate(
-            $pitchs,
+            $pitches,
             $request->query->getInt('page', 1),
             2
         );
@@ -39,7 +39,7 @@ class ProfileController extends BaseController
         return $this->render('FOSUserBundle:Profile:show.html.twig', array(
             'user' => $user,
             'views' => $views,
-            'pitchs' => $pagination
+            'pitches' => $pagination
         ));
     }
 }

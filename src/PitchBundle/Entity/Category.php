@@ -36,11 +36,11 @@ class Category
     private $slug;
 
     /**
-     * @var ArrayCollection $pitchs
+     * @var ArrayCollection $pitches
      * @ORM\OneToMany(targetEntity="PitchBundle\Entity\Pitch", mappedBy="category", cascade={"persist", "remove"}))
      * @ORM\JoinColumn(nullable=true)
      */
-    private $pitchs;
+    private $pitches;
 
     /**
      * Get id
@@ -88,7 +88,7 @@ class Category
      */
     public function __construct()
     {
-        $this->pitchs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->pitches = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -100,7 +100,7 @@ class Category
      */
     public function addPitch(\PitchBundle\Entity\Pitch $pitch)
     {
-        $this->pitchs[] = $pitch;
+        $this->pitches[] = $pitch;
 
         return $this;
     }
@@ -112,17 +112,17 @@ class Category
      */
     public function removePitch(\PitchBundle\Entity\Pitch $pitch)
     {
-        $this->pitchs->removeElement($pitch);
+        $this->pitches->removeElement($pitch);
     }
 
     /**
-     * Get pitchs
+     * Get pitches
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPitchs()
+    public function getPitches()
     {
-        return $this->pitchs;
+        return $this->pitches;
     }
 
     /**

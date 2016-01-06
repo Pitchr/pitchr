@@ -32,11 +32,11 @@
 
                                         <dt>Pitcher depuis:</dt>
                                         <dd>{{ user.createdAt | localizeddate('medium', 'none') }}</dd>
-                                        <dt>Total Pitchs:</dt>
-                                        <dd>{{ user.pitchs | length }}</dd>
+                                        <dt>Total Pitches:</dt>
+                                        <dd>{{ user.pitches | length }}</dd>
 
                                         <dt>Total Vues:</dt>
-                                        <dd>{{ views }}</dd>
+                                        <dd>{{ views | number_format }}</dd>
                                     </dl>
                                 </div>
                                 <div class="row m0 social_section section_row">
@@ -62,17 +62,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row title_row">
-                        <h3>Pitchs de {{ user.username }}</h3>
-                    </div>
-                    <div class="row">
-                        {% for pitch in pitchs %}
-                            {% include 'PitchBundle:Default:pitch_thumb_sm_4.html.twig' with {'pitch': pitch} %}
-                        {% endfor %}
-                    </div>
-                    <div class="navigation">
-                        {{ knp_pagination_render(pitchs) }}
-                    </div>
+                    {% if pitches | length > 0 %}
+                        <div class="row title_row">
+                            <h3>Pitches de {{ user.username }}</h3>
+                        </div>
+                        <div class="row">
+                            {% for pitch in pitches %}
+                                {% include 'PitchBundle:Default:pitch_thumb_sm_4.html.twig' with {'pitch': pitch} %}
+                            {% endfor %}
+                        </div>
+                        <div class="navigation">
+                            {{ knp_pagination_render(pitches) }}
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="col-sm-3 sidebar sidebar2">
                     <div class="row m0 sidebar_row_inner">
@@ -80,9 +82,11 @@
                         <form action="#" role="search" class="search_form row m0 widget widget_search">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search Here">
-                                <span class="input-group-addon"><button type="submit">
-                                        <img src="images/icons/search.png"
-                                             alt=""></button></span>
+                                <span class="input-group-addon">
+                                    <button type="submit">
+                                        <img src="{{ asset('images/icons/search.png')}}" alt="">
+                                    </button>
+                                </span>
                             </div>
                         </form>
                         <!--Sponsored Area-->

@@ -18,7 +18,7 @@ class PitchRepository extends CommonRepository
      * @param Pitch $pitch
      * @return array
      */
-    public function findMorePitchs(User $user, Pitch $pitch)
+    public function findMorePitches(User $user, Pitch $pitch)
     {
         $qb = $this->createQueryBuilder('p');
 
@@ -37,7 +37,7 @@ class PitchRepository extends CommonRepository
      *
      * @return array
      */
-    public function findLastPitchs(){
+    public function findLastPitches(){
 
         $qb = $this->createQueryBuilder('p')
             ->orderBy('p.createdAt','desc');
@@ -51,7 +51,7 @@ class PitchRepository extends CommonRepository
      * @param User $user
      * @return array
      */
-    public function findLastPitchsByUser(User $user){
+    public function findLastPitchesByUser(User $user){
 
         $qb = $this->createQueryBuilder('p')
             ->where('p.user = :user')

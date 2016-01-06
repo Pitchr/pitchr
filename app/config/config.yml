@@ -12,7 +12,7 @@ parameters:
 
 framework:
     #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -39,6 +39,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form_themes:
+        - 'form/form_errors.html.twig'
 
 # Doctrine Configuration
 doctrine:
@@ -83,7 +85,7 @@ swiftmailer:
 fos_user:
     db_driver:     orm                       # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
     firewall_name: main                      # Le nom du firewall derrière lequel on utilisera ces utilisateurs
-    user_class:    UserBundle\Entity\User # La classe de l'entité User que nous utilisons
+    user_class:    UserBundle\Entity\User    # La classe de l'entité User que nous utilisons
     registration:
         form:
             type:  UserBundle\Form\Type\RegistrationFormType

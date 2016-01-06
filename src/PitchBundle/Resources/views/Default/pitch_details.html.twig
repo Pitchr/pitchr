@@ -83,94 +83,28 @@
                         <h5 class="comment_count">
                             {% set count = pitch.comments | length %}
                             {% transchoice count %}
-                            {0} %count% Comment:| [2,Inf] %count% Comments:
-                            {% endtranschoice %}<br>
+                            {0} %count% Commentaire:| [2,Inf] %count% Commentaires:
+                            {% endtranschoice %}
                         </h5>
+                        <br>
 
-                        <div class="media comment">
-                            <div class="media-left"><a href="#"><img
-                                            src="http://uxart.io.dimgx.net/Products/video-cafe/images/follow/4.jpg"
-                                            alt=""
-                                            class="img-circle"></a></div>
-                            <div class="media-body">
-                                <div class="comment_header">
-                                    <h5>
-                                        <a href="#" class="author_name">Lisa Zing Lung Chung</a>
-                                        <span class="time_ago">10 minutes ago</span>
-                                        <a href="#" class="reply_link">Reply</a>
-                                    </h5>
-                                </div>
-                                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                                    mollit
-                                    anim id est laborum. Sed ut perspiciat unde omnis iste natus error sit voluptatem
-                                    accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
-                                    inventore
-                                    veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-
-                                <div class="media comment comment_reply">
-                                    <div class="media-left"><a href="#"><img
-                                                    src="http://uxart.io.dimgx.net/Products/video-cafe/images/follow/4.jpg"
-                                                    alt="" class="img-circle"></a></div>
-                                    <div class="media-body">
-                                        <div class="comment_header">
-                                            <h5>
-                                                <a href="#" class="author_name">Lisa Zing Lung Chung</a>
-                                                <span class="time_ago">10 minutes ago</span>
-                                                <a href="#" class="reply_link">Reply</a>
-                                            </h5>
-                                        </div>
-                                        <p>Sed ut perspiciat unde omnis iste natus error sit voluptatem accusantium
-                                            doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
-                                            veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
-                                    </div>
-                                </div> <!--Comment Reply-->
-                            </div>
-                        </div> <!--Comment-->
-                        <div class="media comment">
-                            <div class="media-left"><a href="#"><img
-                                            src="http://uxart.io.dimgx.net/Products/video-cafe/images/follow/4.jpg"
-                                            alt=""
-                                            class="img-circle"></a></div>
-                            <div class="media-body">
-                                <div class="comment_header">
-                                    <h5>
-                                        <a href="#" class="author_name">Lisa Zing Lung Chung</a>
-                                        <span class="time_ago">10 minutes ago</span>
-                                        <a href="#" class="reply_link">Reply</a>
-                                    </h5>
-                                </div>
-                                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                                    mollit
-                                    anim id est laborum. Sed ut perspiciat unde omnis iste natus error sit voluptatem
-                                    accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
-                                    inventore
-                                    veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-
-                                <div class="media comment comment_reply">
-                                    <div class="media-left"><a href="#"><img
-                                                    src="http://uxart.io.dimgx.net/Products/video-cafe/images/follow/4.jpg"
-                                                    alt="" class="img-circle"></a></div>
-                                    <div class="media-body">
-                                        <div class="comment_header">
-                                            <h5>
-                                                <a href="#" class="author_name">Lisa Zing Lung Chung</a>
-                                                <span class="time_ago">10 minutes ago</span>
-                                                <a href="#" class="reply_link">Reply</a>
-                                            </h5>
-                                        </div>
-                                        <p>Sed ut perspiciat unde omnis iste natus error sit voluptatem accusantium
-                                            doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
-                                            veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
-                                    </div>
-                                </div> <!--Comment Reply-->
-                            </div>
-                        </div> <!--Comment-->
+                        {% for comment in pitch.comments %}
+                            {% include 'PitchBundle:Default:comment.html.twig' with {'comment': comment} %}
+                        {% endfor %}
                     </div>
-                    <form action="#" class="row m0 comment_form">
-                        <h5>Donne ton avis:</h5>
-                        <textarea class="form-control"></textarea>
-                        <input type="submit" value="Commenter" class="btn btn default">
-                    </form>
+                    {% if app.user %}
+                        {{ render(controller('PitchBundle:Front:commentAdd', {'pitch': pitch})) }}
+                    {% else %}
+                        <div class="col-sm-10 sidebar sidebar2">
+                            <h5 id="reply" class="text-uppercase text-strong">
+                                <a href="{{ path('fos_user_security_login') }}" class="text-strong underline">Connectez-vous</a>
+                                ou
+                                <a href="{{ path('fos_user_registration_register') }}" class="text-strong underline">créez
+                                    un compte</a>
+                                pour participer.
+                            </h5>
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="col-sm-3 sidebar sidebar2">
                     <div class="row m0 sidebar_row_inner">
@@ -196,12 +130,12 @@
                             </div>
                         </div>
                         <!--More From the Author-->
-                        {% if more_pitchs is not empty %}
+                        {% if more_pitches is not empty %}
                             <div class="row m0 widget widget_popular_videos">
                                 <h5 class="widget_title">Autres vidéos du pitcher</h5>
 
                                 <div class="row m0 inner">
-                                    {% for pitch in more_pitchs %}
+                                    {% for pitch in more_pitches %}
                                         <div class="media">
                                             <div class="media-left">
                                                 <a href="{{ path('pitch_details', {'slug': pitch.slug}) }}">
@@ -216,7 +150,7 @@
                                                 </a>
 
                                                 <div class="row m0 meta_info views">{{ pitch.views }} views</div>
-                                                <div class="row m0 meta_info posted">{{ pitch.createdAt | date('d/m/Y') }}</div>
+                                                <div class="row m0 meta_info posted">{{ pitch.createdAt | time_diff | trans }}</div>
                                             </div>
                                         </div>
                                     {% endfor %}
@@ -225,25 +159,30 @@
                         {% endif %}
                         <!--Recommended for You-->
                         <div class="row m0 widget widget_popular_videos">
-                            <h5 class="widget_title">Pitchs qui peuvent t'intéresser</h5>
-                            <div class="row m0 inner">
-                                <!-- details pitchs sur la droite -->
-                                {% for i in 0..3 %}
-                                <div class="media">
-                                    <div class="media-left"><a href="{{ path('pitch_details', {'slug': all_pitchs[i].slug}) }}"><img
-                                                    src="http://uxart.io.dimgx.net/Products/video-cafe/images/popular/4.jpg"
-                                                    alt=""><span class="duration">1:03</span></a></div>
-                                    <div class="media-body">
-                                        <a href="{{ path('pitch_details', {'slug': all_pitchs[i].slug}) }}">
-                                            <h5>{{ all_pitchs[i].title }}</h5>
-                                        </a>
+                            <h5 class="widget_title">Pitches qui peuvent t'intéresser</h5>
 
-                                        <div class="row m0 meta_info views">{{ all_pitchs[i].views }} vues</div>
-                                        <div class="row m0 meta_info posted">{{ all_pitchs[i].createdAt | localizeddate('medium', 'none') }}</div>
+                            <div class="row m0 inner">
+                                <!-- details pitches sur la droite -->
+                                {% for pitch in all_pitches | slice(0,3) %}
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <a href="{{ path('pitch_details', {'slug': pitch.slug}) }}">
+                                                <img src="http://uxart.io.dimgx.net/Products/video-cafe/images/popular/4.jpg"
+                                                     alt="">
+                                                <span class="duration">1:03</span>
+                                            </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <a href="{{ path('pitch_details', {'slug': pitch.slug}) }}">
+                                                <h5>{{ pitch.title }}</h5>
+                                            </a>
+
+                                            <div class="row m0 meta_info views">{{ pitch.views }} vues</div>
+                                            <div class="row m0 meta_info posted">{{ pitch.createdAt | localizeddate('medium', 'none') }}</div>
+                                        </div>
                                     </div>
-                                </div>
                                 {% endfor %}
-                                <!-- fin details pitchs -->
+                                <!-- fin details pitches -->
                             </div>
                         </div>
                     </div>
