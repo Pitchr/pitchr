@@ -4,6 +4,8 @@ namespace UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use JMS\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -25,7 +27,8 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", nullable=false, length=500)
+     * @ORM\Column(name="description", type="text", nullable=true, length=500)
+     * @Groups({"post","put"})
      */
     protected $description;
 
@@ -35,6 +38,14 @@ class User extends BaseUser
      * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="text", nullable=false)
+     * @Groups({"post","put"})
+     */
+    private $name;
 
     /**
      * @var ArrayCollection $pitches
@@ -49,6 +60,14 @@ class User extends BaseUser
      * @ORM\JoinColumn(nullable=true)
      */
     private $comments;
+
+    /**
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email.",
+     *     checkMX = true
+     * )
+     */
+    protected $email;
 
     /**
      * Constructor
@@ -142,6 +161,30 @@ class User extends BaseUser
     }
 
     /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return User
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
      * Get description
      *
      * @return string
@@ -183,5 +226,17 @@ class User extends BaseUser
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+    * Returns a safe object of this entity
+    * @return object safeObject
+    */
+    public function getSafeObject() {
+        return array("username_canonical" => $this->getUsernameCanonical(),
+        "username" => $this->getUsername(),
+        "email" => $this->getEmail(),
+        "description" => $this->getDescription(),
+        "created_at" => $this->getCreatedAt());
     }
 }

@@ -77,6 +77,8 @@ class LoadPitch implements FixtureInterface
         $user->setPlainPassword('deadpool');
         $user->setEmail('xkoma@nextoo.fr');
         $user->setDescription('Food & Drinking');
+        $user->setName('Xavier Koma');
+        $user->setEnabled(true);
 
         foreach ($comments as $c) {
             $comment = new Comment();
