@@ -14,8 +14,10 @@
                 <div class="col-sm-9 post_page_uploads">
                     <div class="author_details post_details row m0">
                         <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item"
-                                    src="https://www.youtube.com/embed/rK97ecsxd4g"></iframe>
+                            {% if pitch.url %}
+                                <iframe class="embed-responsive-item"
+                                        src="https://www.youtube.com/embed/{{ pitch.url }}"></iframe>
+                            {% endif %}
                         </div>
                         <div class="row post_title_n_view">
                             <h2 class="col-sm-8 post_title">{{ pitch.title }}</h2>

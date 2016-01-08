@@ -6,6 +6,7 @@ use PitchBundle\Entity\Category;
 use PitchBundle\Entity\Comment;
 use PitchBundle\Entity\Pitch;
 use PitchBundle\Form\CommentType;
+use PitchBundle\Form\PitchType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -88,7 +89,7 @@ class FrontController extends Controller
     }
 
     /**
-     * @Route("/comment-add/{pitch}", name="comment_add")
+     * @Route("/comment/add/{pitch}", name="comment_add")
      * @return Response instance
      */
     public function commentAddAction(Request $request, Pitch $pitch)
@@ -111,6 +112,32 @@ class FrontController extends Controller
         }
 
         return $this->render('PitchBundle:Default:comment_add.html.twig', array(
+            'form' => $form->createView(),
+            'pitch' => $pitch
+        ));
+    }
+
+    /**
+     * @Route("/pitch/add/", name="pitch_add")
+     * @return Response instance
+     */
+    public function pitchAddAction(Request $request)
+    {
+        $pitch = new Pitch();
+        $form = $this->createForm(PitchType::class, $pitch);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $pitch->setUser($this->getUser());
+            $em->persist($pitch);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('pitch_details', array('slug' => $pitch->getSlug())));
+        }
+
+        return $this->render('PitchBundle:Default:pitch_add.html.twig', array(
             'form' => $form->createView(),
             'pitch' => $pitch
         ));

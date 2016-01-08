@@ -20,7 +20,9 @@
 
                 <form action="/file-upload" class="dropzone dz-clickable" id="upload_media">
                     <div class="inner row m0">
-                        <div class="row m0 plus_ico">+</div>
+                        <a href="{{ path('pitch_add') }}">
+                            <div class="row m0 plus_ico">+</div>
+                        </a>
                         <input type="file" name="file" id="media_up_btn" class="sr-only">
                         <label for="media_up_btn"><img src="images/icons/cloud.png" alt="">Upload ton Pitch</label>
                     </div>

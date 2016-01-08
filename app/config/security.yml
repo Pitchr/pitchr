@@ -13,22 +13,24 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-#         main:
-#             pattern:        ^/
-#             anonymous:      true
-#             provider:       main
-#             form_login:
-#                 login_path: fos_user_security_login
-#                 check_path: fos_user_security_check
-#                 provider: fos_userbundle
-#                 #csrf_token_generator: security.csrf.token_manager
-# #                success_handler: authentication_handler
-# #                failure_handler: authentication_handler
-#             logout:
-#                 path:       fos_user_security_logout
-#                 target:     /login
-#             remember_me:
-#                 secret:     %secret%
+# todo: redireger sur le referer si connexion
+        main:
+            pattern:        ^/
+            anonymous:      true
+            provider: fos_userbundle
+            form_login:
+                login_path: fos_user_security_login
+                check_path: fos_user_security_check
+                target_path_parameter: _target_path
+                use_referer: true
+                csrf_token_generator: security.csrf.token_manager
+            # #                success_handler: authentication_handler
+            # #                failure_handler: authentication_handler
+            logout:
+                path:       fos_user_security_logout
+                target:     /login
+            remember_me:
+                secret:     %secret%
 
         login:
             pattern:  ^/api/login
@@ -70,6 +72,9 @@ security:
     access_control:
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/pitch, roles: ROLE_USER }
+        - { path: ^/comment, roles: ROLE_USER }
+
 
     encoders:
         UserBundle\Entity\User:

@@ -4,6 +4,8 @@ namespace PitchBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation\Groups;
+use PitchBundle\Model\SafeObjectInterface;
 
 /**
  * Comment
@@ -13,7 +15,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity(repositoryClass="PitchBundle\Repository\CommentRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class Comment
+class Comment implements SafeObjectInterface
 {
     /**
      * @var int
@@ -65,6 +67,7 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="text", type="text")
+     * @Groups({"post","put"})
      */
     private $text;
 

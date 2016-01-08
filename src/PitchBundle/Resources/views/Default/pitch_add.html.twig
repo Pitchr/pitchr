@@ -1,0 +1,36 @@
+{% extends "PitchBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+
+{% block pitch_body %}
+
+    {{ form_start(form, {'method': 'post', 'action': path('pitch_add'), 'attr': {'class': 'fos_user_registration_register signup_form auth_form', 'role': 'form'}}) }}
+
+    <div class="form-inner row">
+        <div class="form-header row m0">
+            <a href="/"><img src="{{ asset('images/logo.png') }}" alt=""></a>
+            <h4>Créez votre pitch</h4>
+        </div>
+        <div class="form-body row m0">
+            {{ form_widget(form.title, {'attr': {'class': 'form-control', 'placeholder': 'Titre' }}) }}
+            {{ form_errors(form.title) }}
+
+            {{ form_widget(form.category, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.category) }}
+
+            {{ form_widget(form.url, {'attr': {'class': 'form-control', 'placeholder': 'Lien vidéo'}}) }}
+            {{ form_errors(form.url) }}
+
+            {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder': 'Description'}}) }}
+            {{ form_errors(form.description) }}
+
+            {{ form_rest(form) }}
+
+            <input type="submit" value="Créer" class="btn btn-default form-control"/>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+{% endblock %}

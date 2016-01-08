@@ -4,6 +4,7 @@ namespace PitchBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use PitchBundle\Model\SafeObjectInterface;
 use JMS\Serializer\Annotation\Groups;
 
 /**
@@ -13,7 +14,7 @@ use JMS\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass="PitchBundle\Repository\PitchRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class Pitch
+class Pitch implements SafeObjectInterface
 {
     /**
      * @var int
@@ -31,6 +32,14 @@ class Pitch
      * @Groups({"post","put"})
      */
     private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url", type="string", length=255)
+     * @Groups({"post","put"})
+     */
+    private $url;
 
     /**
      * @var string
@@ -311,6 +320,18 @@ class Pitch
     }
 
     /**
+     * Pre-persist slug
+     *
+     * @ORM\PrePersist
+     */
+    public function updateSlug()
+    {
+        if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $this->url, $match)) {
+            $this->url = $match[1];
+        }
+    }
+
+    /**
      * Set views
      *
      * @param integer $views
@@ -360,17 +381,42 @@ class Pitch
     }
 
     /**
-    * Returns a safe object of this entity
-    * @return object safeObject
-    */
-    public function getSafeObject() {
+     * Returns a safe object of this entity
+     * @return object safeObject
+     */
+    public function getSafeObject()
+    {
         return array("title" => $this->getTitle(),
-        "description" => $this->getDescription(),
-        "slug" => $this->getSlug(),
-        "views" => $this->getViews(),
-        "created_at" => $this->getCreatedAt(),
-        "updated_at" => $this->getUpdatedAt(),
-        "category" => $this->getCategory()->getSlug(),
-        "user" => $this->getUser()->getUsernameCanonical());
+            "description" => $this->getDescription(),
+            "slug" => $this->getSlug(),
+            "views" => $this->getViews(),
+            "created_at" => $this->getCreatedAt(),
+            "updated_at" => $this->getUpdatedAt(),
+            "category" => $this->getCategory()->getSlug(),
+            "user" => $this->getUser()->getUsernameCanonical());
+    }
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     *
+     * @return Pitch
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
     }
 }

@@ -4,14 +4,14 @@ namespace PitchBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-
+use PitchBundle\Model\SafeObjectInterface;
 /**
  * Category
  *
  * @ORM\Table(name="category")
  * @ORM\Entity(repositoryClass="PitchBundle\Repository\CategoryRepository")
  */
-class Category
+class Category implements SafeObjectInterface
 {
     /**
      * @var int
@@ -80,9 +80,11 @@ class Category
      * To String
      * @return string
      */
-    public function toString(){
+    public function toString()
+    {
         return $this->title;
     }
+
     /**
      * Constructor
      */
@@ -147,5 +149,17 @@ class Category
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Returns a safe object of this entity
+     * @return object safeObject
+     */
+    public function getSafeObject()
+    {
+        return array(
+            "title" => $this->getTitle(),
+            "slug" => $this->getSlug()
+        );
     }
 }
