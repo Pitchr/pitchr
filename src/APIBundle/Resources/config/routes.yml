@@ -9,3 +9,7 @@ comments:
 categories:
     type: rest
     resource: "@APIBundle/Controller/CategoriesController.php"
+
+users:
+    type: rest
+    resource: "@APIBundle/Controller/UsersController.php"
